@@ -1,13 +1,13 @@
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { Navbar } from "../components/Nav.jsx";
+import { useSession } from "next-auth/react";
+import { Navbar } from "../components/Nav";
 
 export default function Home() {
-	const { data: session, status } = useSession();
+	const { data: session } = useSession();
 	console.log(session);
 	const links = [
 		{ id: "1", text: "Friends", path: "/friends" },
-		{ id: "2", text: "Profile", path: "/profile" },
+		{ id: "2", text: "Profile", path: `/profile/${session?.user.name}` },
 	];
 
 	return (

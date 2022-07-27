@@ -1,12 +1,12 @@
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { Navbar } from "../components/Nav.jsx";
+import { Navbar } from "../components/Nav";
 
 export default function Friends() {
 	const [userFriends, setData] = useState(null);
 	const [isLoading, setLoading] = useState(false);
-	const { data: session, status } = useSession();
+	const { data: session } = useSession();
 	const email = session?.user.email;
 	const name = session?.user.name;
 	console.log(email);

@@ -5,14 +5,14 @@ import { FaSearch, FaWindowClose } from "react-icons/fa";
 import Image from "next/image";
 
 export const Navbar = ({ links }) => {
-	const { data: session, status } = useSession();
+	const { data: session } = useSession();
 	const [active, setActive] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
 	const handleClick = () => {
 		setActive(!active);
 	};
-	const linkList = links.map((link) => {
+	const linkList = links.map((link: any) => {
 		return (
 			<Link key={link.id} href={link.path}>
 				<a
@@ -104,6 +104,7 @@ export const Navbar = ({ links }) => {
 							<a
 								onClick={(e) => {
 									e.preventDefault();
+									//@ts-ignore
 									signOut("github");
 								}}
 								className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded-lg text-white items-center justify-center hover:bg-nord_dark-300 text-nord_red"

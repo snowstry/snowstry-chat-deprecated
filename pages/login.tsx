@@ -32,29 +32,31 @@ export default function Login() {
 							<div className="p-5 grid place-items-center">
 								<FaUserAlt className="text-nord_green h-12 w-12" />
 							</div>
-							<button
-								href="/api/auth/signin"
-								className="h-14 text-nord_light-300 bg-nord_dark-400 p-4 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center"
-								onClick={(e) => {
-									e.preventDefault();
-									signIn("github");
-								}}
-							>
-								<FaGithub />
-								<span className="pl-2 pt-1">GitHub</span>
-							</button>
+							<Link href="/api/auth/signin">
+								<button
+									className="h-14 text-nord_light-300 bg-nord_dark-400 p-4 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center"
+									onClick={(e) => {
+										e.preventDefault();
+										signIn("github");
+									}}
+								>
+									<FaGithub />
+									<span className="pl-2 pt-1">GitHub</span>
+								</button>
+							</Link>
 
-							<button
-								href="/api/auth/signin"
-								className="h-14 text-nord_light-300 bg-nord_blue-400 p-4 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center"
-								onClick={(e) => {
-									e.preventDefault();
-									signIn("github");
-								}}
-							>
-								<FaDiscord />
-								<span className="pl-2 pt-1">Discord</span>
-							</button>
+							<Link href="/api/auth/signin">
+								<button
+									className="h-14 text-nord_light-300 bg-nord_blue-400 p-4 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center"
+									onClick={(e) => {
+										e.preventDefault();
+										signIn("github");
+									}}
+								>
+									<FaDiscord />
+									<span className="pl-2 pt-1">Discord</span>
+								</button>
+							</Link>
 						</div>
 					</div>
 				)}
