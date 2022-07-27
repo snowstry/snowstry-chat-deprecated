@@ -20,26 +20,21 @@ const handler = async (req, res) => {
 				const newUser = new User({
 					name,
 					email,
-					friends
-				})
+					friends,
+				});
 				await newUser.save().then((user) => {
 					console.log("Registered New User To DB");
-					const friends = user.friends.friends
-					return res
-					.status(200)
-					.json({
+					const friends = user.friends.friends;
+					return res.status(200).json({
 						msg: "Registered This User and returned data",
 						friends: friends,
 					});
-				})
-				
+				});
 			} else {
-				return res
-					.status(200)
-					.json({
-						msg: "User was already in DB and returned their data",
-						friends: user.friends.friends,
-					});
+				return res.status(200).json({
+					msg: "User was already in DB and returned their data",
+					friends: user.friends.friends,
+				});
 			}
 		});
 	}

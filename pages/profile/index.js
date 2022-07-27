@@ -7,7 +7,7 @@ export default function Profile() {
 	const links = [
 		{ id: "1", text: "Home", path: "/" },
 		{ id: "2", text: "Friends", path: "/friends" },
-	];    
+	];
 
 	return (
 		<div>
