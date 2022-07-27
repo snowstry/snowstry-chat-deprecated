@@ -24,7 +24,7 @@ const handler = async (req, res) => {
 				})
 				await newUser.save().then((user) => {
 					console.log("Registered New User To DB");
-					const friends = user.friends
+					const friends = user.friends.friends
 					return res
 					.status(200)
 					.json({
