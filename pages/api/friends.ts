@@ -14,7 +14,7 @@ const handler = async (req, res) => {
 			Outgoing: [],
 			friends: [],
 		};
-		User.findOne({ email: email }).then((user) => {
+		User.findOne({ email: email }).then(async (user) => {
 			console.log(user);
 			if (!user) {
 				const newUser = new User({
@@ -22,13 +22,14 @@ const handler = async (req, res) => {
 					email,
 					friends
 				})
-				newUser.save().then((user) => {
+				await newUser.save().then((user) => {
 					console.log("Registered New User To DB");
+					const friends = user.friends
 					return res
 					.status(200)
 					.json({
 						msg: "Registered This User and returned data",
-						friends: user.friends.friends,
+						friends: friends,
 					});
 				})
 				
