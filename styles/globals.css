@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+	font-family: "JetbrainsMono";
+	src: url("../public/fonts/JetBrainsMono-Regular.ttf");
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	border: none;
+	border-radius: 1em;
+}
+
+::-webkit-scrollbar-track {
+	background: #2e3440;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #4c566a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #434c5e;
+}
