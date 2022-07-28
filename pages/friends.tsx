@@ -2,14 +2,15 @@ import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { Navbar } from "../components/Nav";
+import { UsernamePopup } from "../components/UsernamePopup";
 
 export default function Friends() {
 	const [userFriends, setData] = useState(null);
 	const [isLoading, setLoading] = useState(false);
 	const { data: session } = useSession();
+	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	const email = session?.user.email;
 	const name = session?.user.name;
-	const pfp = session?.user.image;
 
 	console.log(email);
 	const links = [
@@ -29,6 +30,19 @@ export default function Friends() {
 			setLoading(false);
 		});
 	}, [session, email, name]);
+
+	useEffect(() => {
+		fetch("/api/profileSetup", {
+			body: JSON.stringify({ email, add: false }),
+			method: "POST",
+		}).then(async (res) => {
+			var user = await res.json();
+			console.log(user);
+			if (user.success === false) {
+				setShowUsernameInput(true);
+			}
+		});
+	}, [session, showUsernameInput]);
 
 	const onChange = (e) => {
 		const query = e.target.value
@@ -51,6 +65,9 @@ export default function Friends() {
 
 			<main>
 				<Navbar links={links} />
+				{showUsernameInput && (
+					<UsernamePopup activate={showUsernameInput}/>	
+				)}
 				<h1 className="text-center text-nord_light-300 font-bold text-xl pt-10">
 					{name}&#39;s Friends
 				</h1>
@@ -64,7 +81,7 @@ export default function Friends() {
 					</form>
 					<div className="pt-5 pb-5 pl-10 pr-10 w-screen mt-8">
 						<ol id="friends">
-							{userFriends.friends !== null && userFriends.friends.map((users) => (
+							{userFriends.friends !== null && showUsernameInput !== true && userFriends.friends.map((users) => (
 								<li
 									key={users.name}
 									className="text-nord_light-300 pt-3 pb-3"

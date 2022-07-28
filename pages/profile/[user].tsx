@@ -4,16 +4,17 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Navbar } from "../../components/Nav";
 import Image from "next/image";
+import { UsernamePopup } from '../../components/UsernamePopup'
 
 export default function UserProfile() {
 	const { data: session, status } = useSession();
-	const [isLoading, setLoading] = useState(false);
 	const [user, setData] = useState(null);
+	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	const searchedName = useRouter().query["user"];
 	const myName = session?.user.name;
+	const email = session?.user.email
 
 	useEffect(() => {
-		setLoading(true);
 		fetch("/api/profile", {
 			body: JSON.stringify({ searchedName, myName }),
 			method: "POST",
@@ -21,14 +22,29 @@ export default function UserProfile() {
 			if (searchedName === undefined) return;
 			console.log("hi");
 			setData(await res.json());
-			setLoading(false);
 		});
 	}, [searchedName, myName]);
+
+	useEffect(() => {
+		fetch("/api/profileSetup", {
+			body: JSON.stringify({ email, add: false }),
+			method: "POST",
+		}).then(async (res) => {
+			var user = await res.json();
+			console.log(user);
+			if (user.success === false) {
+				setShowUsernameInput(true);
+			}
+		});
+	}, [session, showUsernameInput]);
+
 	const links = [
 		{ id: "1", text: "Home", path: "/" },
 		{ id: "2", text: "Friends", path: "/friends" },
 	];
+
 	if (user === null) return;
+	
 	return (
 		<div>
 			<Head>
@@ -42,7 +58,9 @@ export default function UserProfile() {
 
 			<main>
 				<Navbar links={links} />
-
+				{showUsernameInput && (
+					<UsernamePopup activate={showUsernameInput}/>	
+				)}
 				{user.user && (
 					<div className="mx-auto mt-10 pb-10 pt-10">
 						<div className="h-48 w-48 mx-auto">
@@ -56,7 +74,10 @@ export default function UserProfile() {
 							/>
 						</div>
 						<h1 className="text-nord_light-300 text-center mt-10 text-xl font-bold">
-							Username: {user.user.name}
+							<ul>
+								<li>Nickname: {user.user.name}</li>
+								<li>Username: {user.user.username}</li>
+							</ul>
 						</h1>
 					</div>
 				)}

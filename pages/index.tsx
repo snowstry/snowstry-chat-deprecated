@@ -1,15 +1,31 @@
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { Navbar } from "../components/Nav";
+import { useEffect, useState } from "react";
+import { UsernamePopup } from "../components/UsernamePopup";
 
 export default function Home() {
 	const { data: session } = useSession();
+	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	console.log(session);
+	const email = session?.user.email
 	const links = [
 		{ id: "1", text: "Friends", path: "/friends" },
 		{ id: "2", text: "Profile", path: `/profile/${session?.user.name}` },
 	];
-
+	useEffect(() => {
+		fetch("/api/profileSetup", {
+			body: JSON.stringify({ email, add: false }),
+			method: "POST",
+		}).then(async (res) => {
+			var user = await res.json();
+			console.log(user);
+			if (user.success === false) {
+				setShowUsernameInput(true);
+			}
+		});
+	}, [session, showUsernameInput]);
+	console.log("this", showUsernameInput)
 	return (
 		<div>
 			<Head>
@@ -23,6 +39,10 @@ export default function Home() {
 
 			<main>
 				<Navbar links={links} />
+				{console.log(`hehe`,showUsernameInput)}
+				{showUsernameInput && (
+					<UsernamePopup activate={showUsernameInput}/>	
+				)}
 				<h1 className="text-center text-nord_light-300 font-bold text-xl pt-10">
 					Welcome {session?.user.name}
 				</h1>

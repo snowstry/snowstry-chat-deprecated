@@ -14,6 +14,22 @@ const handler = async (req, res) => {
 
         if(add === true){
             if(!email || !username || !name || !pfp) return console.log("no data");
+            if(username.length > 20){
+                return res
+                .status(200)
+                .json({
+                    success:false,
+                    msg:"Username cannot be bigger than 20 characters"
+                })
+            }
+            if(username === name){
+                return res
+                .status(200)
+                .json({
+                    success:false,
+                    msg:"Username cannot be same as nickname"
+                })
+            }
         }
         if(!email) return
         const friends = {
