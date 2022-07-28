@@ -1,0 +1,12 @@
+services:
+  glacier:
+    build: .
+    environment:
+      - MONGO_URL=mongodb://glacier:glacier@mongodb
+    ports:
+      - 3000:3000
+  mongodb:
+    image: mongo:5.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=glacier
+      - MONGO_INITDB_ROOT_PASSWORD=glacier
