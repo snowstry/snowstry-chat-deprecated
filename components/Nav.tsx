@@ -7,14 +7,14 @@ import Image from "next/image";
 export const Navbar = ({ links }) => {
 	const { data: session } = useSession();
 	const [active, setActive] = useState(false);
-	const [users, setData] = useState(null)
-	const [query, setQuery] = useState('')
+	const [users, setData] = useState(null);
+	const [query, setQuery] = useState("");
 	const [showModal, setShowModal] = useState(false);
 
 	const onChange = (e) => {
-		setQuery(e.target.value)
-		console.log(query)
-		if(query.length <1) return 
+		setQuery(e.target.value);
+		console.log(query);
+		if (query.length < 1) return;
 		fetch("/api/userSearch", {
 			body: JSON.stringify({ query }),
 			method: "POST",
@@ -23,7 +23,7 @@ export const Navbar = ({ links }) => {
 			console.log("hi");
 			setData(await res.json());
 		});
-	}
+	};
 
 	const handleClick = () => {
 		setActive(!active);
@@ -81,20 +81,38 @@ export const Navbar = ({ links }) => {
 									<div className="relative p-6 flex-auto">
 										<input
 											onChange={onChange}
-											className="bg-nord_dark-300 outline-none rounded-lg pt-2 pb-2 pl-4 pr-4"
+											className="bg-nord_dark-200 outline-none rounded-lg pt-2 pb-2 pl-4 pr-4"
 											placeholder="Search"
 										></input>
 										<ul>
-											{users !== null && query.length > 1 && (
-												console.log("here"),
-												users.user.map((people) =>(
-													<li key={people.name}>
-														<Link id="suggestedUser" href={`/profile/${people.name}`}>
-															{people.name}							
-														</Link>
-													</li>
-												))
-											)}
+											{users !== null &&
+												query.length > 1 &&
+												(console.log("here"),
+												users.user.map((people) => (
+													<ul>
+														<li
+															key={people.name}
+															className="bg-nord_dark-300 mt-2 p-2 rounded-lg"
+														>
+															<Link
+																id="suggestedUser"
+																href={`/profile/${people.name}`}
+															>
+																<button
+																	onClick={() =>
+																		setShowModal(
+																			false
+																		)
+																	}
+																>
+																	{
+																		people.name
+																	}
+																</button>
+															</Link>
+														</li>
+													</ul>
+												)))}
 										</ul>
 									</div>
 								</div>
