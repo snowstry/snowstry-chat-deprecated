@@ -14,40 +14,39 @@ export const Navbar = ({ links }) => {
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	var user;
 	var usernameResult;
-	const name = session?.user.name 
-	const email = session?.user?.email
-	const pfp = session?.user.image
+	const name = session?.user.name;
+	const email = session?.user?.email;
+	const pfp = session?.user.image;
 
 	useEffect(() => {
 		fetch("/api/profileSetup", {
 			body: JSON.stringify({ email, add: false }),
-			method: 'POST',
-		}).then(async (res) => {
-			user = await res.json()
-			console.log(user)
-			if(user.success === false){
-				setShowUsernameInput(true)
-			}
-		})
-	}, [session])
-
-	const getUsername = (event) => {
-		event.preventDefault()
-		var username = event.target.elements.username.value
-		fetch("/api/profileSetup", {
-			body: JSON.stringify({ email, username, name, pfp, add:true }),
 			method: "POST",
 		}).then(async (res) => {
-			usernameResult = await res.json()
-			if(usernameResult.success === true){
-				setShowUsernameInput(false)
+			user = await res.json();
+			console.log(user);
+			if (user.success === false) {
+				setShowUsernameInput(true);
 			}
-			console.log(usernameResult)
-		})
-	}
-	console.log(usernameResult)
+		});
+	}, [session]);
 
-	
+	const getUsername = (event) => {
+		event.preventDefault();
+		var username = event.target.elements.username.value;
+		fetch("/api/profileSetup", {
+			body: JSON.stringify({ email, username, name, pfp, add: true }),
+			method: "POST",
+		}).then(async (res) => {
+			usernameResult = await res.json();
+			if (usernameResult.success === true) {
+				setShowUsernameInput(false);
+			}
+			console.log(usernameResult);
+		});
+	};
+	console.log(usernameResult);
+
 	const findUser = (e) => {
 		setQuery(e.target.value);
 		console.log(query);
@@ -164,7 +163,7 @@ export const Navbar = ({ links }) => {
 								<div className="rounded-lg relative flex flex-col w-full bg-nord_dark-400 outline-none">
 									<div className="flex items-start justify-between">
 										<p className="text-nord_dark-100 mt-5 ml-5">
-											Enter Username
+											Enter a username
 										</p>
 									</div>
 									<div className="relative p-6 flex-auto">
@@ -173,12 +172,15 @@ export const Navbar = ({ links }) => {
 												name="username"
 												type="text"
 												className="bg-nord_dark-200 outline-none rounded-lg pt-2 pb-2 pl-4 pr-4"
-												placeholder="Enter Username."
+												placeholder="Choose wisely"
 											></input>
-											<p>
-											
-											</p>
-											<button type="submit">Submit</button>
+											<p>{usernameResult}</p>
+											<button
+												type="submit"
+												className="bg-nord_dark-200 p-2 mt-4 rounded-lg float-right"
+											>
+												Submit
+											</button>
 										</form>
 									</div>
 								</div>
