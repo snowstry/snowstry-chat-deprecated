@@ -5,8 +5,10 @@ const handler = async (req, res) => {
 	if (req.method === "POST") {
 		var email = JSON.parse(req.body).email;
 		var name = JSON.parse(req.body).name;
+		var pfp = JSON.parse(req.body).pfp
 		console.log(email);
 		console.log(name);
+		console.log(pfp);
 
 		if (email === undefined) return;
 		const friends = {
@@ -21,6 +23,7 @@ const handler = async (req, res) => {
 					name,
 					email,
 					friends,
+					pfp,
 				});
 				await newUser.save().then((user) => {
 					console.log("Registered New User To DB");

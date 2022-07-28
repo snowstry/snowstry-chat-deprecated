@@ -25,7 +25,12 @@ var userSchema = new Schema({
 			type: Array,
 			required: true,
 		},
-	}
+	},
+	pfp:{
+		type: String,
+		required: true,
+	},
+
 });
 
 (mongoose.models as any) = {};

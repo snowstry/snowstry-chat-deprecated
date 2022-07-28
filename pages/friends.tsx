@@ -9,6 +9,8 @@ export default function Friends() {
 	const { data: session } = useSession();
 	const email = session?.user.email;
 	const name = session?.user.name;
+	const pfp = session?.user.image;
+
 	console.log(email);
 	const links = [
 		{ id: "1", text: "Home", path: "/" },
@@ -18,7 +20,7 @@ export default function Friends() {
 	useEffect(() => {
 		setLoading(true);
 		fetch("/api/friends", {
-			body: JSON.stringify({ email, name }),
+			body: JSON.stringify({ email, name, pfp }),
 			method: "POST",
 		}).then(async (res) => {
 			if (email === undefined) return;
@@ -27,6 +29,11 @@ export default function Friends() {
 			setLoading(false);
 		});
 	}, [session, email, name]);
+
+	const onChange = (e) => {
+		const query = e.target.value
+		console.log(query)
+	}
 
 	console.log(!isLoading);
 	if (userFriends === null) return;
@@ -45,23 +52,24 @@ export default function Friends() {
 			<main>
 				<Navbar links={links} />
 				<h1 className="text-center text-nord_light-300 font-bold text-xl pt-10">
-					{session?.user.name}&#39;s Friends
+					{name}&#39;s Friends
 				</h1>
 				<div className="grid place-items-center pt-5">
 					<form>
 						<input
+							onChange={onChange}
 							placeholder="Search"
 							className="bg-nord_dark-200 outline-none rounded-lg text-nord_light-300 pt-2 pb-2 pl-4 pr-4"
 						></input>
 					</form>
 					<div className="pt-5 pb-5 pl-10 pr-10 w-screen mt-8">
 						<ol id="friends">
-							{userFriends.friends.map((name) => (
+							{userFriends.friends.map((users) => (
 								<li
-									key={name.name}
+									key={users.name}
 									className="text-nord_light-300 pt-3 pb-3"
 								>
-									{name.name}
+									{users.name}
 
 									<hr className="border-nord_dark-100 mt-2" />
 								</li>

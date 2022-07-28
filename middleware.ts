@@ -18,6 +18,13 @@ export async function middleware(req) {
     }
   }
 
+  if (pathname === '/profile'){
+    if(!session){
+      return NextResponse.redirect(new URL("/login", req.url))
+    }
+  }
+  
+
   if (pathname === '/login'){
     if(session){
       return NextResponse.redirect(new URL('/', req.url))

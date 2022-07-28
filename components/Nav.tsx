@@ -1,13 +1,29 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { FaSearch, FaWindowClose } from "react-icons/fa";
 import Image from "next/image";
 
 export const Navbar = ({ links }) => {
 	const { data: session } = useSession();
 	const [active, setActive] = useState(false);
+	const [users, setData] = useState(null)
+	const [query, setQuery] = useState('')
 	const [showModal, setShowModal] = useState(false);
+
+	const onChange = (e) => {
+		setQuery(e.target.value)
+		console.log(query)
+		if(query.length <1) return 
+		fetch("/api/userSearch", {
+			body: JSON.stringify({ query }),
+			method: "POST",
+		}).then(async (res) => {
+			if (!query.length) return;
+			console.log("hi");
+			setData(await res.json());
+		});
+	}
 
 	const handleClick = () => {
 		setActive(!active);
@@ -64,9 +80,22 @@ export const Navbar = ({ links }) => {
 									</div>
 									<div className="relative p-6 flex-auto">
 										<input
+											onChange={onChange}
 											className="bg-nord_dark-300 outline-none rounded-lg pt-2 pb-2 pl-4 pr-4"
 											placeholder="Search"
 										></input>
+										<ul>
+											{users !== null && query.length > 1 && (
+												console.log("here"),
+												users.user.map((people) =>(
+													<li key={people.name}>
+														<Link id="suggestedUser" href={`/profile/${people.name}`}>
+															{people.name}							
+														</Link>
+													</li>
+												))
+											)}
+										</ul>
 									</div>
 								</div>
 							</div>
