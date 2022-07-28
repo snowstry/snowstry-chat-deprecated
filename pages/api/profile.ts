@@ -8,11 +8,6 @@ const handler = async (req, res) => {
 		console.log(searchedName, myName);
 
 		if (searchedName === undefined) return;
-		const friends = {
-			Incoming: [],
-			Outgoing: [],
-			friends: [],
-		};
 		User.findOne({ name: searchedName }).then((user) => {
 			console.log(user);
 			if (!user) {

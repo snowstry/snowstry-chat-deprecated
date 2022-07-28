@@ -20,7 +20,7 @@ export default function Friends() {
 	useEffect(() => {
 		setLoading(true);
 		fetch("/api/friends", {
-			body: JSON.stringify({ email, name, pfp }),
+			body: JSON.stringify({ email }),
 			method: "POST",
 		}).then(async (res) => {
 			if (email === undefined) return;
@@ -64,7 +64,7 @@ export default function Friends() {
 					</form>
 					<div className="pt-5 pb-5 pl-10 pr-10 w-screen mt-8">
 						<ol id="friends">
-							{userFriends.friends.map((users) => (
+							{userFriends.friends !== null && userFriends.friends.map((users) => (
 								<li
 									key={users.name}
 									className="text-nord_light-300 pt-3 pb-3"
