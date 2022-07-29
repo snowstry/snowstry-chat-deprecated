@@ -3,7 +3,6 @@ import log from "@shared/logger";
 
 const connectDB = (handler) => async (req, res) => {
 	const mongoUrl: string = process.env.MONGO_URL as string;
-	log.debug(mongoUrl);
 
 	if (mongoose.connections[0].readyState) {
 		log.info("Connection already established.");

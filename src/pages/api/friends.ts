@@ -16,7 +16,7 @@ const handler = async (req, res) => {
 			} else {
 				return res.status(200).json({
 					msg: "User was already in DB and returned their data.",
-					friends: user.friends.friends,
+					friends: user.friends,
 				});
 			}
 		});

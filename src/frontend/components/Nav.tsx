@@ -95,7 +95,7 @@ export const Navbar = ({ links }) => {
 														>
 															<Link
 																id="suggestedUser"
-																href={`/profile/${people.name}`}
+																href={`/profile/${people.username}`}
 															>
 																<button
 																	onClick={() =>
@@ -105,7 +105,7 @@ export const Navbar = ({ links }) => {
 																	}
 																>
 																	{
-																		people.name
+																		`${people.name}  @${people.username}`
 																	}
 																</button>
 															</Link>
