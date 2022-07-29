@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { useSession } from "next-auth/react";
-import { Navbar } from "../components/Nav";
 import { useEffect, useState } from "react";
-import { UsernamePopup } from "../components/UsernamePopup";
+import { Navbar } from "@frontend/components/Nav";
+import { UsernamePopup } from "@frontend/components/UsernamePopup";
 
 export default function Home() {
 	const { data: session } = useSession();

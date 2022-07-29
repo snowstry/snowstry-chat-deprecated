@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Navbar } from "../../components/Nav";
+import { Navbar } from "@frontend/components/Nav";
 
 export default function Profile() {
 	const { data: session, status } = useSession();

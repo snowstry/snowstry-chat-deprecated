@@ -1,5 +1,5 @@
-import connectDB from "../../middleware/mongodb";
-import User from "../../models/User";
+import connectDB from "@backend/middleware/mongodb";
+import User from "@backend/models/User";
 
 const handler = async (req, res) => {
 	if (req.method === "POST") {
