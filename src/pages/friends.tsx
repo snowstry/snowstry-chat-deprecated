@@ -71,48 +71,57 @@ export default function Friends() {
 				<h1 className="text-center text-nord_light-300 font-bold text-xl pt-10">
 					{name}&#39;s Friends
 				</h1>
-				<div className="grid place-items-center pt-5">
-					<form>
-						<input
-							onChange={onChange}
-							placeholder="Search"
-							className="bg-nord_dark-200 outline-none rounded-lg text-nord_light-300 pt-2 pb-2 pl-4 pr-4"
-						></input>
-					</form>
-					<div className="pt-5 pb-5 pl-10 pr-10 w-screen mt-8">
-						<h1>Requests</h1>
-						<ol id="pending">
-							{userFriends.friends !==null &&
-								showUsernameInput !== true &&
-								userFriends.friends.Outgoing.map((users) => (
-									<li
-										key={users.name}
-										className="text-nord_light-300 pt-3 pb-3"
-									>
-										{users.name}
 
-										<hr className="border-nord_dark-100 mt-2" />
-									</li>
-								)
-							)} 
-						</ol>
-						<h1>Friends</h1>
-						<ol id="friends">
-							{userFriends.friends !== null &&
-								showUsernameInput !== true &&
-								userFriends.friends.friends.map((users) => (
-									<li
-										key={users.name}
-										className="text-nord_light-300 pt-3 pb-3"
-									>
-										{users.name}
-
-										<hr className="border-nord_dark-100 mt-2" />
-									</li>
-								)
-							)}
-						</ol>
+				<div className="grid">
+					<div className="grid place-items-center">
+						<form>
+							<input
+								onChange={onChange}
+								placeholder="Search"
+								className="bg-nord_dark-200 outline-none rounded-lg text-nord_light-300 pt-2 pb-2 pl-4 pr-4 mt-4 mb-4"
+							></input>
+						</form>
 					</div>
+					<h1 className="text-nord_light-300 font-bold text-2xl mb-4 ml-4">
+						Requests
+					</h1>
+					<ol id="pending" className="w-auto mb-4 p-4">
+						{userFriends.friends !== null &&
+							showUsernameInput !== true &&
+							userFriends.friends.Outgoing.map((users) => (
+								<li
+									key={users.name}
+									className="text-nord_light-300 p-3"
+								>
+									{users.name}
+
+									<button className="float-right ml-4 text-nord_dark-200 bg-nord_green pt-1 pb-1 pl-3 pr-3 rounded-lg">
+										Accept
+									</button>
+								</li>
+							))}
+					</ol>
+
+					<h1 className="text-nord_light-300 font-bold text-2xl mb-4 ml-4">
+						Friends
+					</h1>
+					<ol id="friends" className="w-auto mb-4 p-4">
+						{userFriends.friends !== null &&
+							showUsernameInput !== true &&
+							userFriends.friends.friends.map((users) => (
+								<li
+									key={users.name}
+									className="text-nord_light-300 p-3"
+								>
+									{users.name}
+									<button>Accept</button>
+
+									<button className="float-right ml-4 text-nord_dark-200 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+										Remove
+									</button>
+								</li>
+							))}
+					</ol>
 				</div>
 			</main>
 		</div>
