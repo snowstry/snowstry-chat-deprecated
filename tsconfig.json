@@ -11,10 +11,11 @@
 		"incremental": true,
 		"esModuleInterop": true,
 		"module": "esnext",
+		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
-		"baseUrl": "./",
+		"baseUrl": "./src",
 		"paths": {
 			"@backend/*": ["backend/*"],
 			"@frontend/*": ["frontend/*"],
