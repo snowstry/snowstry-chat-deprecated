@@ -45,9 +45,9 @@ export default function Friends() {
 	}, [session, showUsernameInput]);
 
 	const onChange = (e) => {
-		const query = e.target.value
-		console.log(query)
-	}
+		const query = e.target.value;
+		console.log(query);
+	};
 
 	console.log(!isLoading);
 	if (userFriends === null) return;
@@ -66,7 +66,7 @@ export default function Friends() {
 			<main>
 				<Navbar links={links} />
 				{showUsernameInput && (
-					<UsernamePopup activate={showUsernameInput}/>	
+					<UsernamePopup activate={showUsernameInput} />
 				)}
 				<h1 className="text-center text-nord_light-300 font-bold text-xl pt-10">
 					{name}&#39;s Friends
@@ -81,16 +81,18 @@ export default function Friends() {
 					</form>
 					<div className="pt-5 pb-5 pl-10 pr-10 w-screen mt-8">
 						<ol id="friends">
-							{userFriends.friends !== null && showUsernameInput !== true && userFriends.friends.map((users) => (
-								<li
-									key={users.name}
-									className="text-nord_light-300 pt-3 pb-3"
-								>
-									{users.name}
+							{userFriends.friends !== null &&
+								showUsernameInput !== true &&
+								userFriends.friends.map((users) => (
+									<li
+										key={users.name}
+										className="text-nord_light-300 pt-3 pb-3"
+									>
+										{users.name}
 
-									<hr className="border-nord_dark-100 mt-2" />
-								</li>
-							))}
+										<hr className="border-nord_dark-100 mt-2" />
+									</li>
+								))}
 						</ol>
 					</div>
 				</div>

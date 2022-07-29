@@ -1,9 +1,8 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { FaSearch, FaWindowClose } from "react-icons/fa";
 import Image from "next/image";
-import { useEffect } from "react";
 
 export const Navbar = ({ links }) => {
 	const { data: session } = useSession();
@@ -12,7 +11,7 @@ export const Navbar = ({ links }) => {
 	const [query, setQuery] = useState("");
 	const [showModal, setShowModal] = useState(false);
 
-	const findUser = (e) => {
+	const findUser = (e: any) => {
 		setQuery(e.target.value);
 		console.log(query);
 		if (query.length < 1) return;
@@ -89,31 +88,35 @@ export const Navbar = ({ links }) => {
 											{users !== null &&
 												query.length > 1 &&
 												(console.log("here"),
-												users.user.map((people) => (
-													<ul>
-														<li
-															key={people.name}
-															className="bg-nord_dark-300 mt-2 p-2 rounded-lg"
-														>
-															<Link
-																id="suggestedUser"
-																href={`/profile/${people.name}`}
+												users.user.map(
+													(people: any) => (
+														<ul>
+															<li
+																key={
+																	people.name
+																}
+																className="bg-nord_dark-300 mt-2 p-2 rounded-lg"
 															>
-																<button
-																	onClick={() =>
-																		setShowModal(
-																			false
-																		)
-																	}
+																<Link
+																	id="suggestedUser"
+																	href={`/profile/${people.name}`}
 																>
-																	{
-																		people.name
-																	}
-																</button>
-															</Link>
-														</li>
-													</ul>
-												)))}
+																	<button
+																		onClick={() =>
+																			setShowModal(
+																				false
+																			)
+																		}
+																	>
+																		{
+																			people.name
+																		}
+																	</button>
+																</Link>
+															</li>
+														</ul>
+													)
+												))}
 										</ul>
 									</div>
 								</div>

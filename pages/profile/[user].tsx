@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Navbar } from "../../components/Nav";
 import Image from "next/image";
-import { UsernamePopup } from '../../components/UsernamePopup'
+import { UsernamePopup } from "../../components/UsernamePopup";
 
 export default function UserProfile() {
 	const { data: session, status } = useSession();
@@ -12,7 +12,7 @@ export default function UserProfile() {
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	const searchedName = useRouter().query["user"];
 	const myName = session?.user.name;
-	const email = session?.user.email
+	const email = session?.user.email;
 
 	useEffect(() => {
 		fetch("/api/profile", {
@@ -44,7 +44,7 @@ export default function UserProfile() {
 	];
 
 	if (user === null) return;
-	
+
 	return (
 		<div>
 			<Head>
@@ -59,7 +59,7 @@ export default function UserProfile() {
 			<main>
 				<Navbar links={links} />
 				{showUsernameInput && (
-					<UsernamePopup activate={showUsernameInput}/>	
+					<UsernamePopup activate={showUsernameInput} />
 				)}
 				{user.user && (
 					<div className="mx-auto mt-10 pb-10 pt-10">

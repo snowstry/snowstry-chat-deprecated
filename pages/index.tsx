@@ -8,7 +8,7 @@ export default function Home() {
 	const { data: session } = useSession();
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	console.log(session);
-	const email = session?.user.email
+	const email = session?.user.email;
 	const links = [
 		{ id: "1", text: "Friends", path: "/friends" },
 		{ id: "2", text: "Profile", path: `/profile/${session?.user.name}` },
@@ -25,7 +25,7 @@ export default function Home() {
 			}
 		});
 	}, [session, showUsernameInput]);
-	console.log("this", showUsernameInput)
+	console.log("this", showUsernameInput);
 	return (
 		<div>
 			<Head>
@@ -39,9 +39,9 @@ export default function Home() {
 
 			<main>
 				<Navbar links={links} />
-				{console.log(`hehe`,showUsernameInput)}
+				{console.log(`hehe`, showUsernameInput)}
 				{showUsernameInput && (
-					<UsernamePopup activate={showUsernameInput}/>	
+					<UsernamePopup activate={showUsernameInput} />
 				)}
 				<h1 className="text-center text-nord_light-300 font-bold text-xl pt-10">
 					Welcome {session?.user.name}
