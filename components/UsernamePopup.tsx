@@ -1,5 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 
 export const UsernamePopup = ({ activate }) => {
@@ -19,8 +19,12 @@ export const UsernamePopup = ({ activate }) => {
 			method: "POST",
 		}).then(async (res) => {
 			setUsername(await res.json());
-			console.log(`helloo`, usernameResult);
-			console.log(usernameResult?.msg);
+			console.log(`Username result:`, usernameResult);
+			if (!usernameResult) {
+				console.log("No result");
+			} else {
+				console.log(usernameResult?.msg);
+			}
 		});
 	};
 	useEffect(() => {
@@ -39,7 +43,7 @@ export const UsernamePopup = ({ activate }) => {
 	return (
 		<>
 			{active ? (
-				<div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none">
+				<div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none text-nord_light-300">
 					<div className="relative w-auto my-6 mx-auto max-w-3xl drop-shadow-xl">
 						<div className="rounded-lg relative flex flex-col w-full bg-nord_dark-400 outline-none">
 							<div className="flex items-start justify-between">
@@ -55,13 +59,16 @@ export const UsernamePopup = ({ activate }) => {
 										className="bg-nord_dark-200 outline-none rounded-lg pt-2 pb-2 pl-4 pr-4"
 										placeholder="Choose wisely"
 									></input>
+
+									<p className="mt-2">
+										{usernameResult && errorMessage}
+									</p>
 									<button
 										type="submit"
 										className="bg-nord_dark-200 p-2 mt-4 rounded-lg float-right"
 									>
 										Submit
 									</button>
-									<p>{usernameResult && errorMessage}</p>
 								</form>
 							</div>
 						</div>

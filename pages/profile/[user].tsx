@@ -7,7 +7,7 @@ import Image from "next/image";
 import { UsernamePopup } from "../../components/UsernamePopup";
 
 export default function UserProfile() {
-	const { data: session, status } = useSession();
+	const { data: session } = useSession();
 	const [user, setData] = useState(null);
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	const searchedName = useRouter().query["user"];
@@ -36,7 +36,7 @@ export default function UserProfile() {
 				setShowUsernameInput(true);
 			}
 		});
-	}, [session, showUsernameInput]);
+	}, [session, showUsernameInput, email]);
 
 	const links = [
 		{ id: "1", text: "Home", path: "/" },

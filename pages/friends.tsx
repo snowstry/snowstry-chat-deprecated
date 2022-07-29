@@ -42,7 +42,7 @@ export default function Friends() {
 				setShowUsernameInput(true);
 			}
 		});
-	}, [session, showUsernameInput]);
+	}, [session, showUsernameInput, email]);
 
 	const onChange = (e) => {
 		const query = e.target.value;

@@ -90,31 +90,27 @@ export const Navbar = ({ links }) => {
 												(console.log("here"),
 												users.user.map(
 													(people: any) => (
-														<ul>
-															<li
-																key={
-																	people.name
-																}
-																className="bg-nord_dark-300 mt-2 p-2 rounded-lg"
+														<li
+															key={people.name}
+															className="bg-nord_dark-300 mt-2 p-2 rounded-lg"
+														>
+															<Link
+																id="suggestedUser"
+																href={`/profile/${people.name}`}
 															>
-																<Link
-																	id="suggestedUser"
-																	href={`/profile/${people.name}`}
+																<button
+																	onClick={() =>
+																		setShowModal(
+																			false
+																		)
+																	}
 																>
-																	<button
-																		onClick={() =>
-																			setShowModal(
-																				false
-																			)
-																		}
-																	>
-																		{
-																			people.name
-																		}
-																	</button>
-																</Link>
-															</li>
-														</ul>
+																	{
+																		people.name
+																	}
+																</button>
+															</Link>
+														</li>
 													)
 												))}
 										</ul>

@@ -24,7 +24,7 @@ export default function Home() {
 				setShowUsernameInput(true);
 			}
 		});
-	}, [session, showUsernameInput]);
+	}, [session, showUsernameInput, email]);
 	console.log("this", showUsernameInput);
 	return (
 		<div>
