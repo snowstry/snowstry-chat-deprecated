@@ -3,11 +3,12 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
+import log from "@shared/logger";
 
 export default function Home() {
 	const { data: session } = useSession();
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
-	console.log(session);
+	log.debug(session);
 	const email = session?.user.email;
 	const links = [
 		{ id: "1", text: "Friends", path: "/friends" },
@@ -19,13 +20,13 @@ export default function Home() {
 			method: "POST",
 		}).then(async (res) => {
 			var user = await res.json();
-			console.log(user);
+			log.debug(user);
 			if (user.success === false) {
 				setShowUsernameInput(true);
 			}
 		});
 	}, [session, showUsernameInput, email]);
-	console.log("this", showUsernameInput);
+	log.debug(showUsernameInput);
 	return (
 		<div>
 			<Head>
@@ -39,7 +40,7 @@ export default function Home() {
 
 			<main>
 				<Navbar links={links} />
-				{console.log(`hehe`, showUsernameInput)}
+				{log.debug(showUsernameInput)}
 				{showUsernameInput && (
 					<UsernamePopup activate={showUsernameInput} />
 				)}

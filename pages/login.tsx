@@ -2,11 +2,12 @@ import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { FaGithub, FaDiscord, FaUserAlt } from "react-icons/fa";
 import Link from "next/link";
+import log from "@shared/logger";
 
 export default function Login() {
 	const { data: session, status } = useSession();
-	console.log("session=>" + session);
-	console.log("status=>" + status);
+	log.debug("Session: " + session);
+	log.debug("Status: " + status);
 
 	return (
 		<div>

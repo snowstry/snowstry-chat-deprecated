@@ -1,6 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { useEffect } from "react";
+import log from "@shared/logger";
 
 export const UsernamePopup = ({ activate }) => {
 	const { data: session } = useSession();
@@ -19,11 +20,11 @@ export const UsernamePopup = ({ activate }) => {
 			method: "POST",
 		}).then(async (res) => {
 			setUsername(await res.json());
-			console.log(`Username result:`, usernameResult);
+			log.debug(`Username result:`, usernameResult);
 			if (!usernameResult) {
-				console.log("No result");
+				log.debug("No result");
 			} else {
-				console.log(usernameResult?.msg);
+				log.debug(usernameResult?.msg);
 			}
 		});
 	};
@@ -37,9 +38,9 @@ export const UsernamePopup = ({ activate }) => {
 		}, 3000);
 	}, [usernameResult]);
 
-	console.log(active);
-	console.log(usernameResult, "he");
-	console.log(errorMessage);
+	log.debug(active);
+	log.debug(usernameResult, "he");
+	log.debug(errorMessage);
 	return (
 		<>
 			{active ? (

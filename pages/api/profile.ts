@@ -1,5 +1,6 @@
 import connectDB from "@backend/middleware/mongodb";
 import User from "@backend/models/User";
+import log from "@shared/logger";
 
 const handler = async (req, res) => {
 	if (req.method === "POST") {
@@ -8,11 +9,11 @@ const handler = async (req, res) => {
 			"i"
 		);
 		var myName = JSON.parse(req.body).myName;
-		console.log(searchedName, myName);
+		log.debug(searchedName, myName);
 
 		if (searchedName === undefined) return;
 		User.findOne({ name: searchedName }).then((user) => {
-			console.log(user);
+			log.debug(user);
 			if (!user) {
 				return res.status(200).json({
 					success: false,

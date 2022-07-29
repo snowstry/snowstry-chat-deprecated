@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaSearch, FaWindowClose } from "react-icons/fa";
 import Image from "next/image";
+import log from "@shared/logger";
 
 export const Navbar = ({ links }) => {
 	const { data: session } = useSession();
@@ -13,14 +14,13 @@ export const Navbar = ({ links }) => {
 
 	const findUser = (e: any) => {
 		setQuery(e.target.value);
-		console.log(query);
+		log.debug(query);
 		if (query.length < 1) return;
 		fetch("/api/userSearch", {
 			body: JSON.stringify({ query }),
 			method: "POST",
 		}).then(async (res) => {
 			if (!query.length) return;
-			console.log("hi");
 			setData(await res.json());
 		});
 	};
@@ -87,7 +87,6 @@ export const Navbar = ({ links }) => {
 										<ul>
 											{users !== null &&
 												query.length > 1 &&
-												(console.log("here"),
 												users.user.map(
 													(people: any) => (
 														<li
@@ -112,7 +111,7 @@ export const Navbar = ({ links }) => {
 															</Link>
 														</li>
 													)
-												))}
+												)}
 										</ul>
 									</div>
 								</div>

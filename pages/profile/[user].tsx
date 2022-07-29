@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
+import log from "@shared/logger";
 
 export default function UserProfile() {
 	const { data: session } = useSession();
@@ -20,7 +21,6 @@ export default function UserProfile() {
 			method: "POST",
 		}).then(async (res) => {
 			if (searchedName === undefined) return;
-			console.log("hi");
 			setData(await res.json());
 		});
 	}, [searchedName, myName]);
@@ -31,7 +31,7 @@ export default function UserProfile() {
 			method: "POST",
 		}).then(async (res) => {
 			var user = await res.json();
-			console.log(user);
+			log.debug(user);
 			if (user.success === false) {
 				setShowUsernameInput(true);
 			}

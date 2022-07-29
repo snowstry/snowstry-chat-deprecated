@@ -1,5 +1,6 @@
 import connectDB from "@backend/middleware/mongodb";
 import User from "@backend/models/User";
+import log from "@shared/logger";
 
 const handler = async (req, res) => {
 	if (req.method === "POST") {
@@ -10,18 +11,18 @@ const handler = async (req, res) => {
 		var name = JSON.parse(req.body).name;
 		var pfp = JSON.parse(req.body).pfp;
 		var add = JSON.parse(req.body).add;
-		console.log(username, email, name, pfp);
+		log.debug(username, email, name, pfp);
 
 		if (add === true) {
 			if (!email || !username || !name || !pfp)
-				return console.log("no data");
+				return log.debug("no data");
 			if (username.length > 20) {
 				return res.status(200).json({
 					success: false,
 					msg: "Username cannot be bigger than 20 characters",
 				});
 			}
-			if(username.indexOf(' ') >= 0){
+			if (username.indexOf(" ") >= 0) {
 				return res.status(200).json({
 					success: false,
 					msg: "Username cannot have spaces",
@@ -41,14 +42,14 @@ const handler = async (req, res) => {
 			friends: [],
 		};
 		User.findOne({ email: email }).then((user) => {
-			console.log(user);
+			log.debug(user);
 			if (!user) {
 				if (add === true) {
 					User.findOne({ username: usernameRegexed }).then(
 						async (user) => {
 							if (user) {
-								console.log(user);
-								console.log("username already taken");
+								log.debug(user);
+								log.error("Username already taken.");
 								return res.status(200).json({
 									success: false,
 									msg: "Username Already Exists",
@@ -62,8 +63,7 @@ const handler = async (req, res) => {
 									pfp,
 								});
 								await newUser.save().then((user) => {
-									console.log("Registered New User To DB");
-									console.log("adding user");
+									log.debug("Registered New User To DB.");
 
 									return res.status(200).json({
 										success: true,
@@ -80,7 +80,7 @@ const handler = async (req, res) => {
 					});
 				}
 			} else {
-				console.log("user already exists huh");
+				log.debug("User already exists.");
 				return res.status(200).json({
 					success: true,
 					user: user,

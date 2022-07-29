@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
+import log from "@shared/logger";
 
 export default function Friends() {
 	const [userFriends, setData] = useState(null);
@@ -12,7 +13,7 @@ export default function Friends() {
 	const email = session?.user.email;
 	const name = session?.user.name;
 
-	console.log(email);
+	log.debug(email);
 	const links = [
 		{ id: "1", text: "Home", path: "/" },
 		{ id: "2", text: "Profile", path: "/profile" },
@@ -25,7 +26,6 @@ export default function Friends() {
 			method: "POST",
 		}).then(async (res) => {
 			if (email === undefined) return;
-			console.log("hi");
 			setData(await res.json());
 			setLoading(false);
 		});
@@ -37,7 +37,7 @@ export default function Friends() {
 			method: "POST",
 		}).then(async (res) => {
 			var user = await res.json();
-			console.log(user);
+			log.debug(user);
 			if (user.success === false) {
 				setShowUsernameInput(true);
 			}
@@ -46,12 +46,12 @@ export default function Friends() {
 
 	const onChange = (e) => {
 		const query = e.target.value;
-		console.log(query);
+		log.debug(query);
 	};
 
-	console.log(!isLoading);
+	log.debug(!isLoading);
 	if (userFriends === null) return;
-	console.log(userFriends);
+	log.debug(userFriends);
 	return (
 		<div>
 			<Head>
