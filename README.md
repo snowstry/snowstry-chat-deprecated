@@ -6,15 +6,17 @@
    <h3 align="center">Glacier</h3>
 
    <p align="center">
-     🥶 An icy cold chat app or something.
+   A chat app designed with simplicity and good user experience in mind.
    </p>
 </div>
 
-## Running
+### Running
 
-```bash
-npm run dev
-# or
+```
+# install
+yarn install
+
+# run in development mode
 yarn dev
 ```
 
