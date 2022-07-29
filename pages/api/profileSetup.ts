@@ -21,6 +21,12 @@ const handler = async (req, res) => {
 					msg: "Username cannot be bigger than 20 characters",
 				});
 			}
+			if(username.indexOf(' ') >= 0){
+				return res.status(200).json({
+					success: false,
+					msg: "Username cannot have spaces",
+				});
+			}
 			if (username === name) {
 				return res.status(200).json({
 					success: false,
