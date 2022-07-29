@@ -80,6 +80,23 @@ export default function Friends() {
 						></input>
 					</form>
 					<div className="pt-5 pb-5 pl-10 pr-10 w-screen mt-8">
+						<h1>Requests</h1>
+						<ol id="pending">
+							{userFriends.friends !==null &&
+								showUsernameInput !== true &&
+								userFriends.friends.Outgoing.map((users) => (
+									<li
+										key={users.name}
+										className="text-nord_light-300 pt-3 pb-3"
+									>
+										{users.name}
+
+										<hr className="border-nord_dark-100 mt-2" />
+									</li>
+								)
+							)} 
+						</ol>
+						<h1>Friends</h1>
 						<ol id="friends">
 							{userFriends.friends !== null &&
 								showUsernameInput !== true &&
@@ -92,7 +109,8 @@ export default function Friends() {
 
 										<hr className="border-nord_dark-100 mt-2" />
 									</li>
-								))}
+								)
+							)}
 						</ol>
 					</div>
 				</div>

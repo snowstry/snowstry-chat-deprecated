@@ -12,12 +12,12 @@ const handler = async (req, res) => {
 		log.debug(searchedName, myName);
 
 		if (searchedName === undefined) return;
-		User.findOne({ name: searchedName }).then((user) => {
+		User.findOne({ username: searchedName }).then((user) => {
 			log.debug(user);
 			if (!user) {
 				return res.status(200).json({
 					success: false,
-					msg: "No User Exists With That Name",
+					msg: "No User Exists With That Username",
 					user: null,
 				});
 			} else {

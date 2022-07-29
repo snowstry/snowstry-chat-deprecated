@@ -78,6 +78,7 @@ export default function UserProfile() {
 								<li>Nickname: {user.user.name}</li>
 								<li>Username: {user.user.username}</li>
 							</ul>
+							<p>{(user.user.friends.friends).length} Friends</p>
 						</h1>
 					</div>
 				)}
