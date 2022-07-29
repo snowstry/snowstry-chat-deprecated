@@ -100,7 +100,7 @@ export default function Friends() {
 						<ol id="friends">
 							{userFriends.friends !== null &&
 								showUsernameInput !== true &&
-								userFriends.friends.map((users) => (
+								userFriends.friends.friends.map((users) => (
 									<li
 										key={users.name}
 										className="text-nord_light-300 pt-3 pb-3"
