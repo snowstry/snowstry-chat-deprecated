@@ -12,22 +12,21 @@ export default function UserProfile() {
 	const [user, setData] = useState(null);
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	const searchedName = useRouter().query["user"];
-	const myName = session?.user.name;
-	const email = session?.user.email;
+	const myEmail = session?.user.email;
 
 	useEffect(() => {
 		fetch("/api/profile", {
-			body: JSON.stringify({ searchedName, myName }),
+			body: JSON.stringify({ searchedName, myEmail }),
 			method: "POST",
 		}).then(async (res) => {
 			if (searchedName === undefined) return;
 			setData(await res.json());
 		});
-	}, [searchedName, myName]);
+	}, [searchedName]);
 
 	useEffect(() => {
 		fetch("/api/profileSetup", {
-			body: JSON.stringify({ email, add: false }),
+			body: JSON.stringify({ myEmail, add: false }),
 			method: "POST",
 		}).then(async (res) => {
 			var user = await res.json();
@@ -36,7 +35,19 @@ export default function UserProfile() {
 				setShowUsernameInput(true);
 			}
 		});
-	}, [session, showUsernameInput, email]);
+	}, [session, showUsernameInput, myEmail]);
+
+	const addFriend = (e) => {
+		// const username = e.target.value
+		// console.log(username)
+		// fetch("/api/manageFriend", {
+		// 	body: JSON.stringify({ username, myEmail }),
+		// 	method: "POST",
+		// }).then(async (res) => {
+		// 	var user = await res.json();
+		// 	log.debug(user);
+		// });
+	}
 
 	const links = [
 		{ id: "1", text: "Home", path: "/" },
@@ -79,6 +90,11 @@ export default function UserProfile() {
 								<li>Username: {user.user.username}</li>
 							</ul>
 							<p>{(user.user.friends.friends).length} Friends</p>
+							{user.sessionedUser !== true && (
+								<button value={user.user.username} onClick={addFriend} className="float-center ml-4 text-nord_dark-200 bg-nord_green pt-1 pb-1 pl-3 pr-3 rounded-lg">
+									Add Friend
+								</button>	
+							)}
 						</h1>
 					</div>
 				)}

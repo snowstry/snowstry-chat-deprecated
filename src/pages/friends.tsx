@@ -44,6 +44,10 @@ export default function Friends() {
 		});
 	}, [session, showUsernameInput, email]);
 
+	const handleRequest = (e) => {
+		console.log(e.target.value)
+	}
+
 	const onChange = (e) => {
 		const query = e.target.value;
 		log.debug(query);
@@ -119,7 +123,7 @@ export default function Friends() {
 										className="text-nord_light-300 p-3"
 									>
 										<div className="mb-2 mt-1">
-											<button className="float-right ml-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											<button onClick={handleRequest} className="float-right ml-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
 												Remove
 											</button>
 										</div>

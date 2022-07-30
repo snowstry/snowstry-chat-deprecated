@@ -8,12 +8,9 @@ import log from "@shared/logger";
 export default function Home() {
 	const { data: session } = useSession();
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
+	var [username, setUsername] = useState();
 	log.debug(session);
 	const email = session?.user.email;
-	const links = [
-		{ id: "1", text: "Friends", path: "/friends" },
-		{ id: "2", text: "Profile", path: `/profile/${session?.user.name}` },
-	];
 	useEffect(() => {
 		fetch("/api/profileSetup", {
 			body: JSON.stringify({ email, add: false }),
@@ -26,6 +23,21 @@ export default function Home() {
 			}
 		});
 	}, [session, showUsernameInput, email]);
+
+	useEffect(() => {
+		fetch("/api/getUserdata", {
+			body: JSON.stringify({ email }),
+			method:'POST'
+		}).then(async (res) => {
+			setUsername(await res.json())
+		})
+	}, [session])
+
+	const links = [
+		{ id: "1", text: "Friends", path: "/friends" },
+		{ id: "2", text: "Profile", path: `/profile/${username?.user.username}` },
+	];
+
 	log.debug(showUsernameInput);
 	return (
 		<div>
