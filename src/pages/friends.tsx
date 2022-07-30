@@ -85,20 +85,24 @@ export default function Friends() {
 					<h1 className="text-nord_light-300 font-bold text-2xl mb-4 ml-4">
 						Requests
 					</h1>
+
 					<ol id="pending" className="w-auto mb-4 p-4">
 						{userFriends.friends !== null &&
 							showUsernameInput !== true &&
 							userFriends.friends.Outgoing.map((users) => (
-								<li
-									key={users.name}
-									className="text-nord_light-300 p-3"
-								>
-									{users.name}
-
-									<button className="float-right ml-4 text-nord_dark-200 bg-nord_green pt-1 pb-1 pl-3 pr-3 rounded-lg">
-										Accept
-									</button>
-								</li>
+								<div className="mb-4 bg-nord_dark-200 rounded-lg">
+									<li
+										key={users.name}
+										className="text-nord_light-300 p-3"
+									>
+										<div className="mb-2 mt-1">
+											<button className="float-right ml-4 text-nord_dark-200 bg-nord_green pt-1 pb-1 pl-3 pr-3 rounded-lg">
+												Accept
+											</button>
+										</div>
+										<div className="mb-1">{users.name}</div>
+									</li>
+								</div>
 							))}
 					</ol>
 
@@ -109,17 +113,19 @@ export default function Friends() {
 						{userFriends.friends !== null &&
 							showUsernameInput !== true &&
 							userFriends.friends.friends.map((users) => (
-								<li
-									key={users.name}
-									className="text-nord_light-300 p-3"
-								>
-									{users.name}
-									<button>Accept</button>
-
-									<button className="float-right ml-4 text-nord_dark-200 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
-										Remove
-									</button>
-								</li>
+								<div className="mb-4 bg-nord_dark-200 rounded-lg">
+									<li
+										key={users.name}
+										className="text-nord_light-300 p-3"
+									>
+										<div className="mb-2 mt-1">
+											<button className="float-right ml-4 text-nord_dark-200 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+												Remove
+											</button>
+										</div>
+										<div className="mb-1">{users.name}</div>
+									</li>
+								</div>
 							))}
 					</ol>
 				</div>
