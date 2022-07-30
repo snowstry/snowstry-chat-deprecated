@@ -82,7 +82,7 @@ export default function Friends() {
 							></input>
 						</form>
 					</div>
-					<h1 className="text-nord_light-300 font-bold text-2xl mb-4 ml-4">
+					<h1 className="text-nord_blue-300 font-bold text-2xl mb-4 ml-4">
 						Requests
 					</h1>
 
@@ -106,7 +106,7 @@ export default function Friends() {
 							))}
 					</ol>
 
-					<h1 className="text-nord_light-300 font-bold text-2xl mb-4 ml-4">
+					<h1 className="text-nord_blue-300 font-bold text-2xl mb-4 ml-4">
 						Friends
 					</h1>
 					<ol id="friends" className="w-auto mb-4 p-4">
@@ -119,7 +119,7 @@ export default function Friends() {
 										className="text-nord_light-300 p-3"
 									>
 										<div className="mb-2 mt-1">
-											<button className="float-right ml-4 text-nord_dark-200 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											<button className="float-right ml-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
 												Remove
 											</button>
 										</div>
