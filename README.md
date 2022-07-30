@@ -12,6 +12,8 @@
 
 ### Running
 
+Rename `sample.env` to `.env.local` and fill in the details.
+
 ```
 # install
 yarn install
