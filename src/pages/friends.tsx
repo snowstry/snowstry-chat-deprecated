@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
 import log from "@shared/logger";
+import Link from "next/link";
+
 
 export default function Friends() {
 	const [userFriends, setData] = useState(null);
@@ -104,7 +106,7 @@ export default function Friends() {
 												Accept
 											</button>
 										</div>
-										<div className="mb-1">{users.name}</div>
+										<Link href={`/profile/${users.username}`} className="mb-1">{users.name}</Link>
 									</li>
 								</div>
 							))}
@@ -127,7 +129,7 @@ export default function Friends() {
 												Remove
 											</button>
 										</div>
-										<div className="mb-1">{users.name}</div>
+										<Link href={`/profile/${users.username}`} className="mb-1">{users.name}</Link>
 									</li>
 								</div>
 							))}
