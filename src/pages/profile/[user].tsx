@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
 import log from "@shared/logger";
+import { FaPlus } from "react-icons/fa";
 
 export default function UserProfile() {
 	const { data: session } = useSession();
@@ -47,7 +48,7 @@ export default function UserProfile() {
 		// 	var user = await res.json();
 		// 	log.debug(user);
 		// });
-	}
+	};
 
 	const links = [
 		{ id: "1", text: "Home", path: "/" },
@@ -84,18 +85,42 @@ export default function UserProfile() {
 								objectFit="contain"
 							/>
 						</div>
-						<h1 className="text-nord_light-300 text-center mt-10 text-xl font-bold">
-							<ul>
-								<li>Nickname: {user.user.name}</li>
-								<li>Username: {user.user.username}</li>
+						<div className="text-nord_light-300 text-center mt-10 text-xl">
+							<ul className="mb-4 text-3xl">
+								<li>
+									<span className="font-bold">
+										{user.user.name}{" "}
+									</span>
+									<span className="text-nord_blue-300">
+										@{user.user.username}
+									</span>
+								</li>
 							</ul>
-							<p>{(user.user.friends.friends).length} Friends</p>
 							{user.sessionedUser !== true && (
-								<button value={user.user.username} onClick={addFriend} className="float-center ml-4 text-nord_dark-200 bg-nord_green pt-1 pb-1 pl-3 pr-3 rounded-lg">
-									Add Friend
-								</button>	
+								<>
+									<button
+										onClick={addFriend}
+										className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg"
+									>
+										Block
+									</button>
+
+									<button
+										value={user.user.username}
+										onClick={addFriend}
+										className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
+									>
+										<FaPlus />
+									</button>
+									<button
+										onClick={addFriend}
+										className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg"
+									>
+										Report
+									</button>
+								</>
 							)}
-						</h1>
+						</div>
 					</div>
 				)}
 
