@@ -1,12 +1,14 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import Image from "next/image";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
 import log from "@shared/logger";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import io from 'socket.io-client'
+let socket;
 
 export default function UserProfile() {
 	const { data: session } = useSession();
@@ -14,8 +16,22 @@ export default function UserProfile() {
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	const searchedName = useRouter().query["user"];
 	const myEmail = session?.user.email;
+	var [update, setUpdate] = useState(false)
+
+	useEffect(() => {socketInitializer()}, [session]) 
+	const socketInitializer = async () => {
+		await fetch('/api/socket')
+		socket = io()
+
+		socket.on('SyncPage',async request => {
+			setUpdate(await request)
+			console.log("this", request)
+		})
+
+	}
 
 	useEffect(() => {
+		console.log(update)
 		fetch("/api/profile", {
 			body: JSON.stringify({ searchedName, myEmail }),
 			method: "POST",
@@ -23,7 +39,7 @@ export default function UserProfile() {
 			if (searchedName === undefined) return;
 			setData(await res.json());
 		});
-	}, [searchedName]);
+	}, [searchedName, update]);
 
 	useEffect(() => {
 		fetch("/api/profileSetup", {
@@ -55,27 +71,31 @@ export default function UserProfile() {
 					e.target.id = "cancel"
 					e.target.className = "float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg"
 					e.target.innerText = "Cancel Request"
+					socket.emit("requestToSync", "add")
 				}
 				else if(type === "cancel"){
 					e.target.id = "add"
 					e.target.className = "float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
 					e.target.innerText = "Add Friend"
+					socket.emit("requestToSync", "cancel")
 				}
 				else if(type === "accept"){
-					e.target.id = "message"
-					e.target.className = "float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
-					e.target.innerText = "Message"
+					e.target.id = "remove"
+					e.target.className = "float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg"
+					e.target.innerText = "Remove Friend"
+					socket.emit("requestToSync", "accept")
 				}
 				else if(type === "remove"){
 					e.target.id = "add"
 					e.target.className = "float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
 					e.target.innerText = "Add Friend"
+					socket.emit("requestToSync", "remove")
 				}
 			}
 			log.debug(msg);
 		});
 	};
-
+	
 	const links = [
 		{ id: "1", text: "Home", path: "/" },
 		{ id: "2", text: "Friends", path: "/friends" },

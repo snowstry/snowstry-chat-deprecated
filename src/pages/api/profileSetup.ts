@@ -4,7 +4,7 @@ import log from "@shared/logger";
 
 const handler = async (req, res) => {
 	if (req.method === "POST") {
-		var email = JSON.parse(req.body).email;
+		var email = JSON.parse(req.body).myEmail;
 		var username = JSON.parse(req.body).username;
 		var usernameRegexed = new RegExp(["^", username, "$"].join(""), "i");
 

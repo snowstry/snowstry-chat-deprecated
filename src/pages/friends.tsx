@@ -5,37 +5,50 @@ import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
 import log from "@shared/logger";
 import Link from "next/link";
-
+import io from 'socket.io-client'
+let socket;
 
 export default function Friends() {
 	const [userFriends, setData] = useState(null);
 	const [isLoading, setLoading] = useState(false);
 	const { data: session } = useSession();
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
-	const email = session?.user.email;
+	const myEmail = session?.user.email;
 	const name = session?.user.name;
+	var [update, setUpdate] = useState(false)
 
-	log.debug(email);
+	log.debug(myEmail);
 	const links = [
 		{ id: "1", text: "Home", path: "/" },
 		{ id: "2", text: "Profile", path: "/profile" },
 	];
 
+	useEffect(() => {socketInitializer()}, [session]) 
+	const socketInitializer = async () => {
+		await fetch('/api/socket')
+		socket = io()
+
+		socket.on('SyncPage',async request => {
+			setUpdate(await request)
+		})
+
+	}
+
 	useEffect(() => {
 		setLoading(true);
 		fetch("/api/friends", {
-			body: JSON.stringify({ email }),
+			body: JSON.stringify({ myEmail }),
 			method: "POST",
 		}).then(async (res) => {
-			if (email === undefined) return;
+			if (myEmail === undefined) return;
 			setData(await res.json());
 			setLoading(false);
 		});
-	}, [session, email, name]);
+	}, [session, myEmail, name, update]);
 
 	useEffect(() => {
 		fetch("/api/profileSetup", {
-			body: JSON.stringify({ email, add: false }),
+			body: JSON.stringify({ myEmail, add: false }),
 			method: "POST",
 		}).then(async (res) => {
 			var user = await res.json();
@@ -44,15 +57,47 @@ export default function Friends() {
 				setShowUsernameInput(true);
 			}
 		});
-	}, [session, showUsernameInput, email]);
-
-	const handleRequest = (e) => {
-		console.log(e.target.value)
-	}
+	}, [session, myEmail]);
 
 	const onChange = (e) => {
 		const query = e.target.value;
 		log.debug(query);
+	};
+
+	const addFriend = (e) => {
+		const username = e.target.value
+		const type = e.target.id
+		console.log(username)
+		e.target.disabled = true
+		fetch("/api/manageFriend", {
+			body: JSON.stringify({ username, myEmail, type }),
+			method: "POST",
+		}).then(async (res) => {
+			var msg = await res.json();
+			console.log(msg)
+			if(msg.success === true){
+				e.target.disabled = false
+				if(type === "cancel"){
+					e.target.id = "add"
+					e.target.className = "float-right ml-4 text-nord_dark-200 bg-nord_green pt-1 pb-1 pl-3 pr-3 rounded-lg"
+					e.target.innerText = "Add Friend"
+					socket.emit("requestToSync", "cancel")
+				}
+				else if(type === "accept"){
+					e.target.id = "message"
+					e.target.className = "float-right ml-4 text-nord_dark-200 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg"
+					e.target.innerText = "Message"
+					socket.emit("requestToSync", "accept")
+				}
+				else if(type === "remove"){
+					e.target.id = "add"
+					e.target.className = "float-right ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
+					e.target.innerText = "Add Friend"
+					socket.emit("requestToSync", "remove")
+				}
+			}
+			log.debug(msg);
+		});
 	};
 
 	log.debug(!isLoading);
@@ -102,9 +147,32 @@ export default function Friends() {
 										className="text-nord_light-300 p-3"
 									>
 										<div className="mb-2 mt-1">
-											<button className="float-right ml-4 text-nord_dark-200 bg-nord_green pt-1 pb-1 pl-3 pr-3 rounded-lg">
-												Accept
+											<button onClick={addFriend} value={users.username} id="cancel" className="float-right ml-4 text-nord_dark-200 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+												Cancel Request
 											</button>
+											<p className="float-right text-nord_blue-300">
+												Out
+											</p>
+										</div>
+										<Link href={`/profile/${users.username}`} className="mb-1">{users.name}</Link>
+									</li>
+								</div>
+							))}
+							{userFriends.friends !== null &&
+							showUsernameInput !== true &&
+							userFriends.friends.Incoming.map((users) => (
+								<div className="mb-4 bg-nord_dark-200 rounded-lg">
+									<li
+										key={users.name}
+										className="text-nord_light-300 p-3"
+									>
+										<div className="mb-2 mt-1">
+											<button onClick={addFriend} value={users.username} id="accept" className="float-right ml-4 text-nord_dark-200 bg-nord_green pt-1 pb-1 pl-3 pr-3 rounded-lg">
+												Accept Request
+											</button>
+											<p className="float-right text-nord_blue-300">
+												Inc
+											</p>
 										</div>
 										<Link href={`/profile/${users.username}`} className="mb-1">{users.name}</Link>
 									</li>
@@ -125,7 +193,7 @@ export default function Friends() {
 										className="text-nord_light-300 p-3"
 									>
 										<div className="mb-2 mt-1">
-											<button onClick={handleRequest} className="float-right ml-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											<button onClick={addFriend} className="float-right ml-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
 												Remove
 											</button>
 										</div>

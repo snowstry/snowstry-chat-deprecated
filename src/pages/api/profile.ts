@@ -12,7 +12,6 @@ const handler = async (req, res) => {
 
 		if (searchedName === undefined) return;
 		User.findOne({ username: searchedName }).then((user) => {
-			console.log(user);
 			if (!user) {
 				console.log("ye naubat nahi")
 				return res.status(200).json({
