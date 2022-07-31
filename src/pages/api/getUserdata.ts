@@ -3,7 +3,7 @@ import User from "@backend/models/User";
 
 const handler = async (req, res) => {
 	if (req.method === "POST") {
-		var email = JSON.parse(req.body).email;
+		var email = JSON.parse(req.body).myEmail;
 		if (!email) return;
 		User.findOne({ email: email }).then((user) => {
 			if (!user) {

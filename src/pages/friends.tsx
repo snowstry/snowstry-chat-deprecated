@@ -10,18 +10,14 @@ let socket;
 
 export default function Friends() {
 	const [userFriends, setData] = useState(null);
+	const [userData, setUserData] = useState(null);
 	const [isLoading, setLoading] = useState(false);
 	const { data: session } = useSession();
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	const myEmail = session?.user.email;
 	const name = session?.user.name;
-	var [update, setUpdate] = useState(false)
-
-	log.debug(myEmail);
-	const links = [
-		{ id: "1", text: "Home", path: "/" },
-		{ id: "2", text: "Profile", path: "/profile" },
-	];
+	const pfp = session?.user.image;
+	const [update, setUpdate] = useState(false)
 
 	useEffect(() => {socketInitializer()}, [session]) 
 	const socketInitializer = async () => {
@@ -44,11 +40,11 @@ export default function Friends() {
 			setData(await res.json());
 			setLoading(false);
 		});
-	}, [session, myEmail, name, update]);
+	}, [session, update]);
 
 	useEffect(() => {
 		fetch("/api/profileSetup", {
-			body: JSON.stringify({ myEmail, add: false }),
+			body: JSON.stringify({name, pfp, myEmail, add: false }),
 			method: "POST",
 		}).then(async (res) => {
 			var user = await res.json();
@@ -57,7 +53,7 @@ export default function Friends() {
 				setShowUsernameInput(true);
 			}
 		});
-	}, [session, myEmail]);
+	}, [session]);
 
 	const onChange = (e) => {
 		const query = e.target.value;
@@ -99,6 +95,20 @@ export default function Friends() {
 			log.debug(msg);
 		});
 	};
+
+	useEffect(() => {
+		fetch("/api/getUserdata", {
+			body: JSON.stringify({ myEmail }),
+			method:'POST'
+		}).then(async (res) => {
+			setUserData(await res.json())
+		})
+	}, [session, showUsernameInput])
+
+	const links = [
+		{ id: "1", text: "Home", path: "/" },
+		{ id: "2", text: "Profile", path: `/profile/${userData?.user?.username}` },
+	];
 
 	log.debug(!isLoading);
 	if (userFriends === null) return;

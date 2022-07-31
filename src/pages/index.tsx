@@ -9,33 +9,34 @@ export default function Home() {
 	const { data: session } = useSession();
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	var [username, setUsername] = useState();
-	log.debug(session);
-	const email = session?.user.email;
+	const myEmail = session?.user.email;
+	const name = session?.user.name
+	const pfp = session?.user.image
+
 	useEffect(() => {
 		fetch("/api/profileSetup", {
-			body: JSON.stringify({ email, add: false }),
+			body: JSON.stringify({pfp, name, myEmail, add: false }),
 			method: "POST",
 		}).then(async (res) => {
 			var user = await res.json();
-			log.debug(user);
 			if (user.success === false) {
 				setShowUsernameInput(true);
 			}
 		});
-	}, [session, showUsernameInput, email]);
+	}, [session, showUsernameInput]);
 
 	useEffect(() => {
 		fetch("/api/getUserdata", {
-			body: JSON.stringify({ email }),
+			body: JSON.stringify({ myEmail }),
 			method:'POST'
 		}).then(async (res) => {
 			setUsername(await res.json())
 		})
-	}, [session])
+	}, [session, showUsernameInput])
 
 	const links = [
 		{ id: "1", text: "Friends", path: "/friends" },
-		{ id: "2", text: "Profile", path: `/profile/${username?.user.username}` },
+		{ id: "2", text: "Profile", path: `/profile/${username?.user?.username}` },
 	];
 
 	log.debug(showUsernameInput);

@@ -6,7 +6,7 @@ import log from "@shared/logger";
 export const UsernamePopup = ({ activate }) => {
 	const { data: session } = useSession();
 	const name = session?.user.name;
-	const email = session?.user?.email;
+	const myEmail = session?.user.email;
 	const pfp = session?.user.image;
 	var [usernameResult, setUsername] = useState();
 	var [errorMessage, setError] = useState("");
@@ -16,7 +16,7 @@ export const UsernamePopup = ({ activate }) => {
 		event.preventDefault();
 		var username = event.target.elements.username.value;
 		fetch("/api/profileSetup", {
-			body: JSON.stringify({ email, username, name, pfp, add: true }),
+			body: JSON.stringify({ myEmail, username, name, pfp, add: true }),
 			method: "POST",
 		}).then(async (res) => {
 			setUsername(await res.json());
@@ -38,9 +38,6 @@ export const UsernamePopup = ({ activate }) => {
 		}, 3000);
 	}, [usernameResult]);
 
-	log.debug(active);
-	log.debug(usernameResult, "he");
-	log.debug(errorMessage);
 	return (
 		<>
 			{active ? (
