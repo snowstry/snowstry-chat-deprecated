@@ -132,7 +132,7 @@ export default function UserProfile() {
 								alt="Profile picture"
 								width={256}
 								height={256}
-								objectFit="contain"
+								objectFit="cover"
 							/>
 						</div>
 						<div className="text-nord_light-300 text-center mt-10 text-xl">

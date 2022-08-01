@@ -86,11 +86,6 @@ const handler = async (req, res) => {
 						console.log("renamed name cuz new name in session detected")
 					})
 				}
-				else if(pfp !== user.pfp){
-					User.findOneAndUpdate({email:email}, {pfp:pfp}).then(() => {
-						console.log("changed profile cuz new profile in session detected")
-					})
-				}
 				log.debug("User already exists.");
 				return res.status(200).json({
 					success: true,

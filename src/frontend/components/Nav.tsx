@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch, FaWindowClose } from "react-icons/fa";
 import Image from "next/image";
 import log from "@shared/logger";
@@ -9,6 +9,7 @@ export const Navbar = ({ links }) => {
 	const { data: session } = useSession();
 	const [active, setActive] = useState(false);
 	const [users, setData] = useState(null);
+	const [selfData, setSelfData] = useState(null);
 	const [query, setQuery] = useState("");
 	const [showModal, setShowModal] = useState(false);
 
@@ -24,6 +25,15 @@ export const Navbar = ({ links }) => {
 			setData(await res.json());
 		});
 	};
+
+	useEffect(() => {
+		fetch("/api/getUserdata", {
+			body: JSON.stringify({ myEmail:session?.user.email }),
+			method:'POST'
+		}).then(async (res) => {
+			setSelfData(await res.json())
+		})
+	}, [session])
 
 	const handleClick = () => {
 		setActive(!active);
@@ -46,10 +56,11 @@ export const Navbar = ({ links }) => {
 					<a className="inline-flex items-center p-2 mr-4 ">
 						<Image
 							className="h-12 w-12 rounded-full"
-							src={session?.user.image}
+							src={selfData?.user.pfp}
 							alt="Profile picture"
 							height={50}
 							width={50}
+							objectFit="cover"
 						/>
 						<p className="pl-4 pt-2">{session?.user.name}</p>
 					</a>
