@@ -158,67 +158,63 @@ export default function Friends() {
 						{userFriends.friends !== null &&
 							showUsernameInput !== true &&
 							userFriends.friends.Outgoing.map((users) => (
-								<div className="mb-4 bg-nord_dark-200 rounded-lg">
-									<li
-										key={users.name}
-										className="text-nord_light-300 p-3"
-									>
-										<div className="mb-2 mt-1">
-											<button
-												onClick={addFriend}
-												value={users.username}
-												id="cancel"
-												className="float-right ml-4 text-nord_dark-200 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg"
-											>
-												Cancel Request
-											</button>
-										</div>
-										<Link
-											href={`/profile/${users.username}`}
-											className="mb-1"
+								<li
+									key={users.name}
+									className="text-nord_light-300 p-3 mb-4 bg-nord_dark-200 rounded-lg"
+								>
+									<div className="mb-2 mt-1">
+										<button
+											onClick={addFriend}
+											value={users.username}
+											id="cancel"
+											className="float-right ml-4 text-nord_dark-200 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg"
 										>
-											<button className="inline-flex items-center text-nord_green">
-												<span className="pr-2 text-nord_light-300">
-													{users.name}
-												</span>
-												<FaArrowUp />
-											</button>
-										</Link>
-										<div className="  text-nord_green rounded-lg "></div>
-									</li>
-								</div>
+											Cancel Request
+										</button>
+									</div>
+									<Link
+										href={`/profile/${users.username}`}
+										className="mb-1"
+									>
+										<button className="inline-flex items-center text-nord_green">
+											<span className="pr-2 text-nord_light-300">
+												{users.name}
+											</span>
+											<FaArrowUp />
+										</button>
+									</Link>
+									<div className="  text-nord_green rounded-lg "></div>
+								</li>
 							))}
 						{userFriends.friends !== null &&
 							showUsernameInput !== true &&
 							userFriends.friends.Incoming.map((users) => (
-								<div className="mb-4 bg-nord_dark-200 rounded-lg">
-									<li
-										key={users.name}
-										className="text-nord_light-300 p-3"
+								<li
+									key={users.name}
+									className="text-nord_light-300 p-3 mb-4 bg-nord_dark-200 rounded-lg"
+								>
+									<button
+										onClick={addFriend}
+										value={users.username}
+										id="accept"
+										className="float-right ml-4 text-nord_dark-200 bg-nord_green pl-3 pr-3 rounded-lg"
 									>
-										<button
-											onClick={addFriend}
-											value={users.username}
-											id="accept"
-											className="float-right ml-4 text-nord_dark-200 bg-nord_green pl-3 pr-3 rounded-lg"
-										>
-											Accept
+										Accept
+									</button>
+									<Link
+										href={`/profile/${users.username}`}
+										className="mb-2"
+									>
+										<button className="inline-flex items-center text-nord_green">
+											<span className="pr-2 text-nord_light-300">
+												{users.name}
+											</span>
+											<FaArrowDown />
 										</button>
-										<Link
-											href={`/profile/${users.username}`}
-											className="mb-2"
-										>
-											<button className="inline-flex items-center text-nord_green">
-												<span className="pr-2 text-nord_light-300">
-													{users.name}
-												</span>
-												<FaArrowDown />
-											</button>
-										</Link>
+									</Link>
 
-										<div className="  text-nord_green rounded-lg "></div>
-									</li>
-								</div>
+									<div className="  text-nord_green rounded-lg "></div>
+								</li>
 							))}
 					</ol>
 
@@ -229,25 +225,23 @@ export default function Friends() {
 						{userFriends.friends !== null &&
 							showUsernameInput !== true &&
 							userFriends.friends.friends.map((users) => (
-								<div className="mb-4 bg-nord_dark-200 rounded-lg">
-									<li
-										key={users.name}
-										className="text-nord_light-300 p-3"
+								<li
+									key={users.name}
+									className="text-nord_light-300 p-3 mb-4 bg-nord_dark-200 rounded-lg"
+								>
+									<button
+										onClick={addFriend}
+										className="float-right ml-4 text-nord_light-300 bg-nord_red pl-3 pr-3 rounded-lg"
 									>
-										<button
-											onClick={addFriend}
-											className="float-right ml-4 text-nord_light-300 bg-nord_red pl-3 pr-3 rounded-lg"
-										>
-											Remove
-										</button>
-										<Link
-											href={`/profile/${users.username}`}
-											className="mb-1"
-										>
-											{users.name}
-										</Link>
-									</li>
-								</div>
+										Remove
+									</button>
+									<Link
+										href={`/profile/${users.username}`}
+										className="mb-1"
+									>
+										{users.name}
+									</Link>
+								</li>
 							))}
 					</ol>
 				</div>
