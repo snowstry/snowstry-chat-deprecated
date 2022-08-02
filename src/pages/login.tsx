@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { FaGithub, FaDiscord, FaUserAlt, FaGoogle } from "react-icons/fa";
+import { FaGithub, FaUserAlt, FaGoogle } from "react-icons/fa";
 import Link from "next/link";
 import log from "@shared/logger";
 
@@ -48,13 +48,13 @@ export default function Login() {
 
 							<Link href="/api/auth/signin">
 								<button
-									className="h-14 text-nord_light-300 bg-nord_blue-400 p-4 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center"
+									className="h-14 text-nord_dark-400 bg-nord_blue-100 p-4 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center"
 									onClick={(e) => {
 										e.preventDefault();
 										signIn("google");
 									}}
 								>
-									<FaGoogle/>
+									<FaGoogle />
 									<span className="pl-2 pt-1">Google</span>
 								</button>
 							</Link>

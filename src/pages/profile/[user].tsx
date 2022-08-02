@@ -6,8 +6,7 @@ import Image from "next/image";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
 import log from "@shared/logger";
-import { FaMinus, FaPlus } from "react-icons/fa";
-import io from 'socket.io-client'
+import io from "socket.io-client";
 let socket;
 
 export default function UserProfile() {
@@ -15,27 +14,27 @@ export default function UserProfile() {
 	var [user, setData] = useState(null);
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	const searchedName = useRouter().query["user"];
-	var [update, setUpdate] = useState(false)
+	var [update, setUpdate] = useState(false);
 
-	
 	const myEmail = session?.user.email;
 	const name = session?.user.name;
-	const pfp = session?.user.image
-	
-	useEffect(() => {socketInitializer()}, [session]) 
-	const socketInitializer = async () => {
-		await fetch('/api/socket')
-		socket = io()
-
-		socket.on('SyncPage',async request => {
-			setUpdate(await request)
-			console.log("this", request)
-		})
-
-	}
+	const pfp = session?.user.image;
 
 	useEffect(() => {
-		console.log(update)
+		socketInitializer();
+	}, [session]);
+	const socketInitializer = async () => {
+		await fetch("/api/socket");
+		socket = io();
+
+		socket.on("SyncPage", async (request) => {
+			setUpdate(await request);
+			console.log("this", request);
+		});
+	};
+
+	useEffect(() => {
+		console.log(update);
 		fetch("/api/profile", {
 			body: JSON.stringify({ searchedName, myEmail }),
 			method: "POST",
@@ -59,47 +58,48 @@ export default function UserProfile() {
 	}, [session, showUsernameInput]);
 
 	const addFriend = (e) => {
-		const username = e.target.value
-		const type = e.target.id
-		console.log(username)
-		e.target.disabled = true
+		const username = e.target.value;
+		const type = e.target.id;
+		console.log(username);
+		e.target.disabled = true;
 		fetch("/api/manageFriend", {
 			body: JSON.stringify({ username, myEmail, type }),
 			method: "POST",
 		}).then(async (res) => {
 			var msg = await res.json();
-			console.log(msg)
-			if(msg.success === true){
-				e.target.disabled = false
-				if(type === "add"){
-					e.target.id = "cancel"
-					e.target.className = "float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg"
-					e.target.innerText = "Cancel Request"
-					socket.emit("requestToSync", "add")
-				}
-				else if(type === "cancel"){
-					e.target.id = "add"
-					e.target.className = "float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
-					e.target.innerText = "Add Friend"
-					socket.emit("requestToSync", "cancel")
-				}
-				else if(type === "accept"){
-					e.target.id = "remove"
-					e.target.className = "float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg"
-					e.target.innerText = "Remove Friend"
-					socket.emit("requestToSync", "accept")
-				}
-				else if(type === "remove"){
-					e.target.id = "add"
-					e.target.className = "float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
-					e.target.innerText = "Add Friend"
-					socket.emit("requestToSync", "remove")
+			console.log(msg);
+			if (msg.success === true) {
+				e.target.disabled = false;
+				if (type === "add") {
+					e.target.id = "cancel";
+					e.target.className =
+						"float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg";
+					e.target.innerText = "Cancel Request";
+					socket.emit("requestToSync", "add");
+				} else if (type === "cancel") {
+					e.target.id = "add";
+					e.target.className =
+						"float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg";
+					e.target.innerText = "Add Friend";
+					socket.emit("requestToSync", "cancel");
+				} else if (type === "accept") {
+					e.target.id = "remove";
+					e.target.className =
+						"float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg";
+					e.target.innerText = "Remove Friend";
+					socket.emit("requestToSync", "accept");
+				} else if (type === "remove") {
+					e.target.id = "add";
+					e.target.className =
+						"float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg";
+					e.target.innerText = "Add Friend";
+					socket.emit("requestToSync", "remove");
 				}
 			}
 			log.debug(msg);
 		});
 	};
-	
+
 	const links = [
 		{ id: "1", text: "Home", path: "/" },
 		{ id: "2", text: "Friends", path: "/friends" },
@@ -146,98 +146,86 @@ export default function UserProfile() {
 									</span>
 								</li>
 							</ul>
-							{user.sessionedUser !== true && user?.request === "noreq" && (
-								<>
-									<button
-										className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg"
-									>
-										Block
-									</button>
+							{user.sessionedUser !== true &&
+								user?.request === "noreq" && (
+									<>
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											Block
+										</button>
 
-									<button
-										id="add"
-										value={user.user.username}
-										onClick={addFriend}
-										className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
-									>
-										Add Friend
-									</button>
-									<button
-										className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg"
-									>
-										Report
-									</button>
-								</>
-							)}
-							{user.sessionedUser !== true && user?.request === "Outgoing" && (
-								<>
-									<button
-										className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg"
-									>
-										Block
-									</button>
+										<button
+											id="add"
+											value={user.user.username}
+											onClick={addFriend}
+											className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
+										>
+											Add Friend
+										</button>
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											Report
+										</button>
+									</>
+								)}
+							{user.sessionedUser !== true &&
+								user?.request === "Outgoing" && (
+									<>
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											Block
+										</button>
 
-									<button
-										id="cancel"
-										value={user.user.username}
-										onClick={addFriend}
-										className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg"
-									>
-										Cancel Request
-									</button>
-									<button
-										className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg"
-									>
-										Report
-									</button>
-								</>
-							)}
-							{user.sessionedUser !== true && user?.request === "Incoming" && (
-								<>
-									<button
-										className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg"
-									>
-										Block
-									</button>
+										<button
+											id="cancel"
+											value={user.user.username}
+											onClick={addFriend}
+											className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg"
+										>
+											Cancel Request
+										</button>
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											Report
+										</button>
+									</>
+								)}
+							{user.sessionedUser !== true &&
+								user?.request === "Incoming" && (
+									<>
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											Block
+										</button>
 
-									<button
-										id="accept"
-										value={user.user.username}
-										onClick={addFriend}
-										className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
-									>
-										Accept Request
-									</button>
-									<button
-										className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg"
-									>
-										Report
-									</button>
-								</>
-							)}
-							{user.sessionedUser !== true && user?.request === "friend" && (
-								<>
-									<button
-										className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg"
-									>
-										Block
-									</button>
+										<button
+											id="accept"
+											value={user.user.username}
+											onClick={addFriend}
+											className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg"
+										>
+											Accept Request
+										</button>
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											Report
+										</button>
+									</>
+								)}
+							{user.sessionedUser !== true &&
+								user?.request === "friend" && (
+									<>
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											Block
+										</button>
 
-									<button
-										id="remove"
-										onClick={addFriend}
-										value={user.user.username}
-										className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg"
-									>
-										Remove Friend
-									</button>
-									<button
-										className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg"
-									>
-										Report
-									</button>
-								</>
-							)}
+										<button
+											id="remove"
+											onClick={addFriend}
+											value={user.user.username}
+											className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg"
+										>
+											Remove Friend
+										</button>
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+											Report
+										</button>
+									</>
+								)}
 						</div>
 					</div>
 				)}

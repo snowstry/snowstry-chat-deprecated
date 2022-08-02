@@ -80,11 +80,21 @@ const handler = async (req, res) => {
 					});
 				}
 			} else {
-				log.info("\ncurrent name:", name, "\nname in database:",user.name)
-				if(name !== user.name){
-					User.findOneAndUpdate({email:email}, {name:name}).then(() => {
-						console.log("renamed name cuz new name in session detected")
-					})
+				log.info(
+					"\ncurrent name:",
+					name,
+					"\nname in database:",
+					user.name
+				);
+				if (name !== user.name) {
+					User.findOneAndUpdate(
+						{ email: email },
+						{ name: name }
+					).then(() => {
+						console.log(
+							"renamed name cuz new name in session detected"
+						);
+					});
 				}
 				log.debug("User already exists.");
 				return res.status(200).json({

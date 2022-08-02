@@ -10,12 +10,12 @@ export default function Home() {
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	var [username, setUsername] = useState();
 	const myEmail = session?.user.email;
-	const name = session?.user.name
-	const pfp = session?.user.image
+	const name = session?.user.name;
+	const pfp = session?.user.image;
 
 	useEffect(() => {
 		fetch("/api/profileSetup", {
-			body: JSON.stringify({pfp, name, myEmail, add: false }),
+			body: JSON.stringify({ pfp, name, myEmail, add: false }),
 			method: "POST",
 		}).then(async (res) => {
 			var user = await res.json();
@@ -28,15 +28,19 @@ export default function Home() {
 	useEffect(() => {
 		fetch("/api/getUserdata", {
 			body: JSON.stringify({ myEmail }),
-			method:'POST'
+			method: "POST",
 		}).then(async (res) => {
-			setUsername(await res.json())
-		})
-	}, [session, showUsernameInput])
+			setUsername(await res.json());
+		});
+	}, [session, showUsernameInput]);
 
 	const links = [
 		{ id: "1", text: "Friends", path: "/friends" },
-		{ id: "2", text: "Profile", path: `/profile/${username?.user?.username}` },
+		{
+			id: "2",
+			text: "Profile",
+			path: `/profile/${username?.user?.username}`,
+		},
 	];
 
 	log.debug(showUsernameInput);
