@@ -42,7 +42,7 @@ export default function UserProfile() {
 			if (searchedName === undefined) return;
 			setData(await res.json());
 		});
-	}, [searchedName, update, session]);
+	}, [searchedName, update, session, myEmail]);
 
 	useEffect(() => {
 		fetch("/api/profileSetup", {
@@ -55,7 +55,7 @@ export default function UserProfile() {
 				setShowUsernameInput(true);
 			}
 		});
-	}, [session, showUsernameInput]);
+	}, [session, showUsernameInput, myEmail, name, pfp]);
 
 	const addFriend = (e) => {
 		const username = e.target.value;

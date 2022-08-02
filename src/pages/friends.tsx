@@ -42,7 +42,7 @@ export default function Friends() {
 			setData(await res.json());
 			setLoading(false);
 		});
-	}, [session, update]);
+	}, [session, update, myEmail]);
 
 	useEffect(() => {
 		fetch("/api/profileSetup", {
@@ -55,7 +55,7 @@ export default function Friends() {
 				setShowUsernameInput(true);
 			}
 		});
-	}, [session]);
+	}, [session, myEmail, name, pfp]);
 
 	const onChange = (e) => {
 		const query = e.target.value;
@@ -106,7 +106,7 @@ export default function Friends() {
 		}).then(async (res) => {
 			setUserData(await res.json());
 		});
-	}, [session, showUsernameInput]);
+	}, [session, showUsernameInput, myEmail]);
 
 	const links = [
 		{ id: "1", text: "Home", path: "/" },
@@ -185,7 +185,6 @@ export default function Friends() {
 											</button>
 										</Link>
 										<div className="  text-nord_green rounded-lg "></div>
-
 									</li>
 								</div>
 							))}

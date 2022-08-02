@@ -23,7 +23,7 @@ export default function Home() {
 				setShowUsernameInput(true);
 			}
 		});
-	}, [session, showUsernameInput]);
+	}, [session, showUsernameInput, myEmail, name, pfp]);
 
 	useEffect(() => {
 		fetch("/api/getUserdata", {
@@ -32,7 +32,7 @@ export default function Home() {
 		}).then(async (res) => {
 			setUsername(await res.json());
 		});
-	}, [session, showUsernameInput]);
+	}, [session, showUsernameInput, myEmail]);
 
 	const links = [
 		{ id: "1", text: "Friends", path: "/friends" },
