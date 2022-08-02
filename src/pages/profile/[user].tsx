@@ -42,7 +42,7 @@ export default function UserProfile() {
 			if (searchedName === undefined) return;
 			setData(await res.json());
 		});
-	}, [searchedName, update]);
+	}, [searchedName, update, session]);
 
 	useEffect(() => {
 		fetch("/api/profileSetup", {

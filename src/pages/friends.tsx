@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
-import { FaArrowDown } from "react-icons/fa";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import log from "@shared/logger";
 import Link from "next/link";
 import io from "socket.io-client";
@@ -172,16 +172,20 @@ export default function Friends() {
 											>
 												Cancel Request
 											</button>
-											<p className="float-right text-nord_blue-300">
-												Out
-											</p>
 										</div>
 										<Link
 											href={`/profile/${users.username}`}
 											className="mb-1"
 										>
-											{users.name}
+											<button className="inline-flex items-center text-nord_green">
+												<span className="pr-2 text-nord_light-300">
+													{users.name}
+												</span>
+												<FaArrowUp />
+											</button>
 										</Link>
+										<div className="  text-nord_green rounded-lg "></div>
+
 									</li>
 								</div>
 							))}
