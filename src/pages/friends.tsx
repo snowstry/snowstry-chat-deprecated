@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
+import { FaArrowDown } from "react-icons/fa";
 import log from "@shared/logger";
 import Link from "next/link";
 import io from "socket.io-client";
@@ -83,7 +84,7 @@ export default function Friends() {
 				} else if (type === "accept") {
 					e.target.id = "message";
 					e.target.className =
-						"float-right ml-4 text-nord_dark-200 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg";
+						"float-right ml-4 text-nord_dark-200 bg-nord_yellow pl-3 pr-3 rounded-lg";
 					e.target.innerText = "Message";
 					socket.emit("requestToSync", "accept");
 				} else if (type === "remove") {
@@ -149,7 +150,7 @@ export default function Friends() {
 							></input>
 						</form>
 					</div>
-					<h1 className="text-nord_blue-300 font-bold text-2xl mb-4 ml-4">
+					<h1 className="text-nord_blue-300 font-bold text-2xl mb-4 ml-4 mt-4">
 						Requests
 					</h1>
 
@@ -192,25 +193,27 @@ export default function Friends() {
 										key={users.name}
 										className="text-nord_light-300 p-3"
 									>
-										<div className="mb-2 mt-1">
-											<button
-												onClick={addFriend}
-												value={users.username}
-												id="accept"
-												className="float-right ml-4 text-nord_dark-200 bg-nord_green pt-1 pb-1 pl-3 pr-3 rounded-lg"
-											>
-												Accept Request
-											</button>
-											<p className="float-right text-nord_blue-300">
-												Inc
-											</p>
-										</div>
+										<button
+											onClick={addFriend}
+											value={users.username}
+											id="accept"
+											className="float-right ml-4 text-nord_dark-200 bg-nord_green pl-3 pr-3 rounded-lg"
+										>
+											Accept
+										</button>
 										<Link
 											href={`/profile/${users.username}`}
-											className="mb-1"
+											className="mb-2"
 										>
-											{users.name}
+											<button className="inline-flex items-center text-nord_green">
+												<span className="pr-2 text-nord_light-300">
+													{users.name}
+												</span>
+												<FaArrowDown />
+											</button>
 										</Link>
+
+										<div className="  text-nord_green rounded-lg "></div>
 									</li>
 								</div>
 							))}
@@ -228,14 +231,12 @@ export default function Friends() {
 										key={users.name}
 										className="text-nord_light-300 p-3"
 									>
-										<div className="mb-2 mt-1">
-											<button
-												onClick={addFriend}
-												className="float-right ml-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg"
-											>
-												Remove
-											</button>
-										</div>
+										<button
+											onClick={addFriend}
+											className="float-right ml-4 text-nord_light-300 bg-nord_red pl-3 pr-3 rounded-lg"
+										>
+											Remove
+										</button>
 										<Link
 											href={`/profile/${users.username}`}
 											className="mb-1"

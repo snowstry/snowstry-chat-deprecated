@@ -73,7 +73,7 @@ export default function UserProfile() {
 				if (type === "add") {
 					e.target.id = "cancel";
 					e.target.className =
-						"float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg";
+						"float-center ml-4 mt-4 text-nord_light-300 bg-nord_red p-3 rounded-lg";
 					e.target.innerText = "Cancel Request";
 					socket.emit("requestToSync", "add");
 				} else if (type === "cancel") {
@@ -85,7 +85,7 @@ export default function UserProfile() {
 				} else if (type === "accept") {
 					e.target.id = "remove";
 					e.target.className =
-						"float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg";
+						"float-center ml-4 mt-4 text-nord_light-300 bg-nord_red p-3 rounded-lg";
 					e.target.innerText = "Remove Friend";
 					socket.emit("requestToSync", "accept");
 				} else if (type === "remove") {
@@ -177,7 +177,7 @@ export default function UserProfile() {
 											id="cancel"
 											value={user.user.username}
 											onClick={addFriend}
-											className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg"
+											className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red p-3 rounded-lg"
 										>
 											Cancel Request
 										</button>
@@ -217,7 +217,7 @@ export default function UserProfile() {
 											id="remove"
 											onClick={addFriend}
 											value={user.user.username}
-											className="float-center ml-4 mt-4 text-nord_dark-200 bg-nord_red p-3 rounded-lg"
+											className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red p-3 rounded-lg"
 										>
 											Remove Friend
 										</button>
