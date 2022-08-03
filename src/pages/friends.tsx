@@ -185,7 +185,8 @@ export default function Friends() {
 									</Link>
 									<div className="  text-nord_green rounded-lg "></div>
 								</li>
-							))}
+							)
+						)}
 						{userFriends.friends !== null &&
 							showUsernameInput !== true &&
 							userFriends.friends.Incoming.map((users) => (
@@ -215,7 +216,8 @@ export default function Friends() {
 
 									<div className="  text-nord_green rounded-lg "></div>
 								</li>
-							))}
+							)
+						)}
 					</ol>
 
 					<h1 className="text-nord_blue-300 font-bold text-2xl mb-4 ml-4">
@@ -230,7 +232,9 @@ export default function Friends() {
 									className="text-nord_light-300 p-3 mb-4 bg-nord_dark-200 rounded-lg"
 								>
 									<button
+										value={users.username}
 										onClick={addFriend}
+										id="remove"
 										className="float-right ml-4 text-nord_light-300 bg-nord_red pl-3 pr-3 rounded-lg"
 									>
 										Remove
@@ -242,7 +246,8 @@ export default function Friends() {
 										{users.name}
 									</Link>
 								</li>
-							))}
+							)
+						)}
 					</ol>
 				</div>
 			</main>
