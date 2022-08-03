@@ -162,25 +162,23 @@ export default function Friends() {
 									key={users.name}
 									className="text-nord_light-300 p-3 mb-4 bg-nord_dark-200 rounded-lg"
 								>
-									<div className="mb-2 mt-1">
-										<button
-											onClick={addFriend}
-											value={users.username}
-											id="cancel"
-											className="float-right ml-4 text-nord_dark-200 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg"
-										>
-											Cancel Request
-										</button>
-									</div>
+									<button
+										onClick={addFriend}
+										value={users.username}
+										id="cancel"
+										className="float-right ml-4 text-nord_light-300 bg-nord_red pl-3 pr-3 rounded-lg"
+									>
+										Cancel Request
+									</button>
 									<Link
 										href={`/profile/${users.username}`}
 										className="mb-1"
 									>
-										<button className="inline-flex items-center text-nord_green">
+										<button className="inline-flex items-center text-nord_red">
 											<span className="pr-2 text-nord_light-300">
 												{users.name}
 											</span>
-											<FaArrowUp />
+											<FaArrowDown />
 										</button>
 									</Link>
 									<div className="  text-nord_green rounded-lg "></div>
