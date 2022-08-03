@@ -78,7 +78,7 @@ export default function Friends() {
 				if (type === "cancel") {
 					e.target.id = "add";
 					e.target.className =
-						"float-right ml-4 text-nord_dark-200 bg-nord_green pt-1 pb-1 pl-3 pr-3 rounded-lg";
+						"float-right ml-4 text-nord_dark-200 bg-nord_green pl-3 pr-3 rounded-lg";
 					e.target.innerText = "Add Friend";
 					socket.emit("requestToSync", "cancel");
 				} else if (type === "accept") {
@@ -90,7 +90,7 @@ export default function Friends() {
 				} else if (type === "remove") {
 					e.target.id = "add";
 					e.target.className =
-						"float-right ml-4 mt-4 text-nord_dark-200 bg-nord_green p-3 rounded-lg";
+						"float-right ml-4 text-nord_dark-200 bg-nord_green pl-3 pr-3 rounded-lg";
 					e.target.innerText = "Add Friend";
 					socket.emit("requestToSync", "remove");
 				}
@@ -185,8 +185,7 @@ export default function Friends() {
 									</Link>
 									<div className="  text-nord_green rounded-lg "></div>
 								</li>
-							)
-						)}
+							))}
 						{userFriends.friends !== null &&
 							showUsernameInput !== true &&
 							userFriends.friends.Incoming.map((users) => (
@@ -216,8 +215,7 @@ export default function Friends() {
 
 									<div className="  text-nord_green rounded-lg "></div>
 								</li>
-							)
-						)}
+							))}
 					</ol>
 
 					<h1 className="text-nord_blue-300 font-bold text-2xl mb-4 ml-4">
@@ -246,8 +244,7 @@ export default function Friends() {
 										{users.name}
 									</Link>
 								</li>
-							)
-						)}
+							))}
 					</ol>
 				</div>
 			</main>
