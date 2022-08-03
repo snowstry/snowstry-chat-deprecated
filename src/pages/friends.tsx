@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import log from "@shared/logger";
 import Link from "next/link";
 import io from "socket.io-client";
@@ -178,7 +178,7 @@ export default function Friends() {
 											<span className="pr-2 text-nord_light-300">
 												{users.name}
 											</span>
-											<FaArrowDown />
+											<FaArrowLeft />
 										</button>
 									</Link>
 									<div className="  text-nord_green rounded-lg "></div>
@@ -207,7 +207,7 @@ export default function Friends() {
 											<span className="pr-2 text-nord_light-300">
 												{users.name}
 											</span>
-											<FaArrowDown />
+											<FaArrowRight />
 										</button>
 									</Link>
 
