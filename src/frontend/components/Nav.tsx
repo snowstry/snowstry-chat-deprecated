@@ -28,12 +28,12 @@ export const Navbar = ({ links }) => {
 
 	useEffect(() => {
 		fetch("/api/getUserdata", {
-			body: JSON.stringify({ myEmail:session?.user.email }),
-			method:'POST'
+			body: JSON.stringify({ myEmail: session?.user.email }),
+			method: "POST",
 		}).then(async (res) => {
-			setSelfData(await res.json())
-		})
-	}, [session])
+			setSelfData(await res.json());
+		});
+	}, [session]);
 
 	const handleClick = () => {
 		setActive(!active);
@@ -73,8 +73,8 @@ export const Navbar = ({ links }) => {
 				</button>
 				{showModal ? (
 					<>
-						<div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none">
-							<div className="relative w-auto my-6 mx-auto max-w-3xl drop-shadow-xl">
+						<div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none ml-2 mr-2">
+							<div className="relative w-full my-6 mx-auto max-w-3xl drop-shadow-xl">
 								<div className="rounded-lg relative flex flex-col w-full bg-nord_dark-400 outline-none">
 									<div className="flex items-start justify-between">
 										<p className="text-nord_dark-100 mt-5 ml-5">
@@ -92,7 +92,7 @@ export const Navbar = ({ links }) => {
 									<div className="relative p-6 flex-auto">
 										<input
 											onChange={findUser}
-											className="bg-nord_dark-200 outline-none rounded-lg pt-2 pb-2 pl-4 pr-4"
+											className="bg-nord_dark-200 outline-none rounded-lg pt-2 pb-2 pl-4 pr-4 w-full"
 											placeholder="Search"
 										></input>
 										<ul>
@@ -115,9 +115,7 @@ export const Navbar = ({ links }) => {
 																		)
 																	}
 																>
-																	{
-																		`${people.name}  @${people.username}`
-																	}
+																	{`${people.name}  @${people.username}`}
 																</button>
 															</Link>
 														</li>
