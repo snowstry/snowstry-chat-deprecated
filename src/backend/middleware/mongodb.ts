@@ -12,10 +12,7 @@ const connectDB = (handler) => async (req, res) => {
 
 	// Use new db connection
 	await mongoose
-		.connect(`${mongoUrl}`, {
-			useUnifiedTopology: true,
-			useNewUrlParser: true,
-		})
+		.connect(`${mongoUrl}`)
 		.then(() => log.info("Connected to MongoDB."))
 		.catch((err) => log.error(err));
 	return handler(req, res);

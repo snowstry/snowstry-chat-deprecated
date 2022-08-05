@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 		router.events.on("routeChangeStart", () => NProgress.start());
 		router.events.on("routeChangeComplete", () => NProgress.done());
 		router.events.on("routeChangeError", () => NProgress.done());
-	}, []);
+	}, [router.events]);
 
 	return (
 		<SessionProvider session={session}>

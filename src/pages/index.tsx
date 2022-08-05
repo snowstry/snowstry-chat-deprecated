@@ -39,6 +39,7 @@ export default function Home() {
 		{
 			id: "2",
 			text: "Profile",
+			//@ts-ignore
 			path: `/profile/${username?.user?.username}`,
 		},
 	];

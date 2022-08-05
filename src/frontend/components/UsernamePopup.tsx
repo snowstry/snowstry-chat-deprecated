@@ -24,12 +24,14 @@ export const UsernamePopup = ({ activate }) => {
 			if (!usernameResult) {
 				log.debug("No result");
 			} else {
-				log.debug(usernameResult?.msg);
+				log.debug(usernameResult["msg"]);
 			}
 		});
 	};
 	useEffect(() => {
+		// @ts-ignore
 		setError(usernameResult?.msg);
+		// @ts-ignore
 		if (usernameResult?.success === true) {
 			setActive(false);
 		}
