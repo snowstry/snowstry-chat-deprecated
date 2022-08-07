@@ -56,7 +56,7 @@ export const Navbar = ({ links }) => {
 					<a className="inline-flex items-center p-2 mr-4 ">
 						<Image
 							className="h-12 w-12 rounded-full"
-							src={selfData?.user.pfp}
+							src={selfData?.user?.pfp}
 							alt="Profile picture"
 							height={50}
 							width={50}

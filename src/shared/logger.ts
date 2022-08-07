@@ -15,7 +15,7 @@ const log = (() => {
 				break;
 			case "debug":
 			default:
-				if (process.env.GLACIER_DEBUG == "true") {
+				if (process.env.SNOWSTRY_DEBUG == "true") {
 					console.log("\x1b[32m[DEBUG]\x1b[0m", ...messages);
 				}
 		}
