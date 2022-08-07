@@ -5,6 +5,7 @@ import { Router, useRouter } from "next/router";
 import Image from "next/image";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
+import { Badges } from "@frontend/components/Badges"
 import log from "@shared/logger";
 import io from "socket.io-client";
 let socket;
@@ -135,7 +136,7 @@ export default function UserProfile() {
 								objectFit="cover"
 							/>
 						</div>
-						<div className="text-nord_light-300 text-center mt-10 text-xl">
+						<div className="text-nord_light-300 item-center text-center mt-10 text-xl">
 							<ul className="mb-4 text-3xl">
 								<li>
 									<span className="font-bold">
@@ -146,6 +147,7 @@ export default function UserProfile() {
 									</span>
 								</li>
 							</ul>
+							<Badges badges={user.user?.badges} />		
 							{user.sessionedUser !== true &&
 								user?.request === "noreq" && (
 									<>
