@@ -1,10 +1,10 @@
-FROM archlinux:base-devel
+FROM node:16.16-alpine
 LABEL maintainers="rv178"
 
 WORKDIR /opt/app
 COPY . .
 
-RUN pacman -Sy --noconfirm nodejs-lts-gallium yarn
-RUN yarn install
+RUN yarn install --frozen-lockfile
+RUN yarn build
 
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]
