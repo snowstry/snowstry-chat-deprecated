@@ -5,7 +5,7 @@ import { Router, useRouter } from "next/router";
 import Image from "next/image";
 import { Navbar } from "@frontend/components/Nav";
 import { UsernamePopup } from "@frontend/components/UsernamePopup";
-import { Badges } from "@frontend/components/Badges"
+import { Badges } from "@frontend/components/Badges";
 import log from "@shared/logger";
 import io from "socket.io-client";
 let socket;
@@ -125,7 +125,7 @@ export default function UserProfile() {
 					<UsernamePopup activate={showUsernameInput} />
 				)}
 				{user?.user && (
-					<div className="mx-auto mt-10 pb-10 pt-10">
+					<div className="mx-auto mt-10 py-10 ml-10 mr-10 rounded-lg">
 						<div className="h-48 w-48 mx-auto">
 							<Image
 								className="rounded-full"
@@ -147,11 +147,14 @@ export default function UserProfile() {
 									</span>
 								</li>
 							</ul>
-							<Badges badges={user.user?.badges} />		
+
+							<div className="inline-flex place-content-center w-full text-2xl text-nord_light-300 py-5">
+								<Badges badges={user.user?.badges} />
+							</div>
 							{user.sessionedUser !== true &&
 								user?.request === "noreq" && (
 									<>
-										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg">
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 py-1 px-3 rounded-lg">
 											Block
 										</button>
 
@@ -163,7 +166,7 @@ export default function UserProfile() {
 										>
 											Add Friend
 										</button>
-										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red pt-1 pb-1 pl-3 pr-3 rounded-lg">
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_red py-1 px-3 rounded-lg">
 											Report
 										</button>
 									</>
@@ -171,7 +174,7 @@ export default function UserProfile() {
 							{user.sessionedUser !== true &&
 								user?.request === "Outgoing" && (
 									<>
-										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 pt-1 pb-1 pl-3 pr-3 rounded-lg">
+										<button className="float-center ml-4 mt-4 text-nord_light-300 bg-nord_dark-100 py-1 px-3 rounded-lg">
 											Block
 										</button>
 
