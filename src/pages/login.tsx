@@ -24,7 +24,7 @@ export default function Login() {
 			<main className="font-jetbrains">
 				{!session && status !== "authenticated" && (
 					<div className="grid h-screen place-items-center">
-						<div className="p-5 grid grid-flow-row h-80 w-64 bg-nord_dark-200 p-4 rounded-3xl text-center drop-shadow-xl">
+						<div className="p-5 grid grid-flow-row h-128 w-64 bg-nord_dark-200 p-4 rounded-3xl text-center drop-shadow-xl">
 							<p className="h-8 text-nord_blue-100">
 								<Link href="/">
 									<a>{"<- Login ->"}</a>
@@ -35,7 +35,7 @@ export default function Login() {
 							</div>
 							<Link href="/api/auth/signin">
 								<button
-									className="h-14 text-nord_light-300 bg-nord_dark-400 p-4 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center"
+									className="h-14 text-nord_light-300 bg-nord_dark-400 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center"
 									onClick={(e) => {
 										e.preventDefault();
 										signIn("github");
@@ -48,7 +48,7 @@ export default function Login() {
 
 							<Link href="/api/auth/signin">
 								<button
-									className="h-14 text-nord_dark-400 bg-nord_blue-100 p-4 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center"
+									className="h-14 text-nord_dark-400 bg-nord_blue-100 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center mt-2"
 									onClick={(e) => {
 										e.preventDefault();
 										signIn("google");
@@ -61,7 +61,7 @@ export default function Login() {
 
 							<Link href="/api/auth/signin">
 								<button
-									className="h-14 text-nord_dark-400 bg-nord_blue-100 p-4 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center"
+									className="h-14 text-nord_dark-400 bg-nord_blue-400 rounded-3xl py-2 px-4 rounded-lg inline-flex items-center mt-2"
 									onClick={(e) => {
 										e.preventDefault();
 										signIn("discord");

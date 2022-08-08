@@ -9,18 +9,24 @@ export const Badges = ({ badges }) => {
 	return (
 		<>
 			{badges.map((badge) => (
-				<div className="inline-flex p-1">
-					{badge.name === "Staff" && (
-						<div className="text-nord_blue-300">
-							<FaCode title="Staff" />
-						</div>
-					)}
-					{badge.name === "Beta Tester" && (
-						<div className="text-nord_green">
-							<FaHotTub title="Beta Tester" />
-						</div>
-					)}
-				</div>
+				<ul key={badges.name}>
+					<div className="inline-flex p-1">
+						<li>
+							{badge.name === "Staff" && (
+								<div className="text-nord_blue-300">
+									<FaCode title="Staff" />
+								</div>
+							)}
+						</li>
+						<li>
+							{badge.name === "Beta Tester" && (
+								<div className="text-nord_green">
+									<FaHotTub title="Beta Tester" />
+								</div>
+							)}
+						</li>
+					</div>
+				</ul>
 			))}
 		</>
 	);
