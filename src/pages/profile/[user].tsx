@@ -148,7 +148,7 @@ export default function UserProfile() {
 								</li>
 							</ul>
 
-							<div className="inline-flex place-content-center w-full text-2xl text-nord_light-300 py-5">
+							<div className="inline-flex place-content-center w-full text-2xl text-nord_light-300">
 								<Badges badges={user.user?.badges} />
 							</div>
 							{user.sessionedUser !== true &&
