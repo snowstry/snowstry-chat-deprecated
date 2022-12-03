@@ -25,7 +25,7 @@ export default function Home() {
 		});
 
 		const channel = pusher.subscribe('chat');
-		channel.bind('chat-event', function (data) {
+		channel.bind('chat-event', function(data) {
 			setChats((prevState) => [
 				...prevState,
 				{ sender: data.sender, message: data.message },
@@ -86,7 +86,6 @@ export default function Home() {
 					name="description"
 					content="Snowstry, A chat app designed with simplicity and good user experience in mind."
 				/>
-				<script async defer src="https://cdn.tailwindcss.com"></script>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
@@ -106,24 +105,21 @@ export default function Home() {
 								<div className="relative flex items-center p-3 border-b border-gray-300">
 									<img className="object-cover w-10 h-10 rounded-full"
 										src="/favicon.ico" alt="username" />
-									<span className="block ml-2 font-bold text-nord_dark-500">Snowstry Public Chat</span>
-									<span className="absolute w-3 h-3 bg-green-600 rounded-full left-10 top-3">
-									</span>
+									<span className="block ml-2 text-nord_light-300">Snowstry Public Chat</span>
 								</div>
-								<div className="relative w-full p-6 overflow-y-auto h-[40rem]">
+								<div className="relative w-full p-6 overflow-y-auto h-[27rem]">
 									<ul className="space-y-2">
 										{chats.map((chat, id) => {
-												return(
+											return (
 												chat.sender.email === session?.user.email ? (
 													<>
 														{/* <p dir="rtl">{chat.message}</p>
 														<small dir="rtl">{chat.sender.name}</small> */}
 														<li className="flex justify-end">
-															<div className="relative max-w-xl px-4 py-2 text-gray-700 bg-gray-100 rounded shadow">
-																<strong className="text-black ">{chat.sender.name}</strong>
+															<div className="relative px-4 py-2 text-nord_light-300 bg-nord_dark-100 rounded shadow">
+																<strong className="text-nord_light-300 ">{chat.sender.name}</strong>
 																<span className="block">{chat.message}</span>
 															</div>
-															
 														</li>
 													</>
 												) : (
@@ -131,8 +127,8 @@ export default function Home() {
 														{/* <p>{chat.message}</p>
 														<small>{chat.sender.name}</small> */}
 														<li className="flex justify-start">
-															<div className="relative max-w-xl px-4 py-2 text-white bg-nord_dark-400 rounded shadow">
-																<strong className="text-white">{chat.sender.name}</strong>
+															<div className="relative max-w-xl px-4 py-2 text-nord_light-300 bg-nord_dark-400 rounded shadow">
+																<strong className="text-nord_light-300">{chat.sender.name}</strong>
 																<span className="block">{chat.message}</span>
 															</div>
 														</li>
@@ -143,15 +139,15 @@ export default function Home() {
 									</ul>
 								</div>
 
-								<div className="flex items-center justify-between w-full p-3 border-t border-nord_black-400">
+								<div className="flex items-center justify-between w-full p-3 text-nord_light-300">
 									<form onSubmit={(e) => { handleSubmit(e) }} className="items w-full inline-flex">
 										<input type="text" placeholder="Message"
 											autoComplete="off"
 											ref={messageField}
-											className="block w-full py-2 pl-4 mx-3 bg-gray-100 rounded-full outline-none focus:text-gray-700"
+											className="block w-full py-2 pl-4 mx-3 bg-nord_dark-100 rounded-lg text-nord_light-300 bg-nord_dark-100 outline-none"
 											name="message" required />
 										<button type="submit">
-											<svg className="w-5 h-5 text-gray-500 origin-center transform rotate-90" xmlns="http://www.w3.org/2000/svg"
+											<svg className="w-5 h-5 text-nord_blue-400 origin-center transform rotate-90" xmlns="http://www.w3.org/2000/svg"
 												viewBox="0 0 20 20" fill="currentColor">
 												<path
 													d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
