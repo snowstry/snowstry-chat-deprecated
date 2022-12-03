@@ -86,7 +86,7 @@ export default function Home() {
 					name="description"
 					content="Snowstry, A chat app designed with simplicity and good user experience in mind."
 				/>
-				<script src="https://cdn.tailwindcss.com"></script>
+				<script async defer src="https://cdn.tailwindcss.com"></script>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
@@ -146,6 +146,7 @@ export default function Home() {
 								<div className="flex items-center justify-between w-full p-3 border-t border-nord_black-400">
 									<form onSubmit={(e) => { handleSubmit(e) }} className="items w-full inline-flex">
 										<input type="text" placeholder="Message"
+											autoComplete="off"
 											ref={messageField}
 											className="block w-full py-2 pl-4 mx-3 bg-gray-100 rounded-full outline-none focus:text-gray-700"
 											name="message" required />
@@ -162,32 +163,6 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-				{/* <div classNameName="list-group list-group-flush border-bottom scrollarea" style={{minHeight: "500px"}}>
-					{chats.map((chat, id) => {
-						return(
-							chat.sender.email === session?.user.email ? (
-								<>
-									<p dir="rtl">{chat.message}</p>
-									<small dir="rtl">{chat.sender.name}</small>
-								</>
-							) : (
-								<>
-									<p>{chat.message}</p>
-									<small>{chat.sender.name}</small>
-								</>
-							)
-						)
-					})}
-				</div>
-
-				<form onSubmit={(e) => { handleSubmit(e) }}>
-					<input
-					 	ref={messageField}
-						classNameName="form-control"
-						type="text"
-						placeholder="Message"
-					/>
-				</form> */}
 			</main>
 		</div>
 	);
