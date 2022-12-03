@@ -5,7 +5,7 @@ export async function middleware(req) {
 	const { pathname } = req.nextUrl;
 	const session = await getToken({
 		req: req,
-		secret: process.env.secret,
+		secret: process.env.SECRET,
 		raw: true,
 	});
 
