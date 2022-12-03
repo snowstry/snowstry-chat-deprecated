@@ -12,7 +12,6 @@ export default function Home() {
 	const [showUsernameInput, setShowUsernameInput] = useState(false);
 	const [username, setUsername] = useState();
 	const [chats, setChats] = useState([]);
-	const [messageToSend, setMessageToSend] = useState("")
 	const myEmail = session?.user.email;
 	const name = session?.user.name;
 	const pfp = session?.user.image;
@@ -33,16 +32,18 @@ export default function Home() {
 			])
 			console.log("sfsf", data)
 		});
-
+		console.log(chats)
 		return () => {
 			pusher.unsubscribe("chat")
 		}
 	})
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		await axios.post('/api/pusher', { message: messageToSend, username })
-		messageField.current.value = ''
+		e.preventDefault();	
+		if(messageField.current.value === '') return;
+		await axios.post('/api/pusher', { message: messageField.current.value, username }).then(() => {
+			messageField.current.value = ''
+		})
 	}
 
 	useEffect(() => {
@@ -103,7 +104,7 @@ export default function Home() {
 				<div className="list-group list-group-flush border-bottom scrollarea" style={{minHeight: "500px"}}>
 					{chats.map((chat, id) => {
 						return(
-							chat.sender.name === session?.user.name ? (
+							chat.sender.username === username?.user.username ? (
 								<>
 									<p dir="rtl">{chat.message}</p>
 									<small dir="rtl">{chat.sender.name}</small>
@@ -123,8 +124,6 @@ export default function Home() {
 					 	ref={messageField}
 						className="form-control"
 						type="text"
-						value={messageToSend}
-						onChange={(e) => setMessageToSend(e.target.value)}
 						placeholder="Message"
 					/>
 				</form>
