@@ -104,7 +104,7 @@ export default function Home() {
 				<div className="list-group list-group-flush border-bottom scrollarea" style={{minHeight: "500px"}}>
 					{chats.map((chat, id) => {
 						return(
-							chat.sender.username === username?.user.username ? (
+							chat.sender.email === session?.user.email ? (
 								<>
 									<p dir="rtl">{chat.message}</p>
 									<small dir="rtl">{chat.sender.name}</small>
