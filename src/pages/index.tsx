@@ -41,9 +41,9 @@ export default function Home() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();	
 		if(messageField.current.value === '') return;
-		await axios.post('/api/pusher', { message: messageField.current.value, username }).then(() => {
-			messageField.current.value = ''
-		})
+		const message = messageField.current.value
+		messageField.current.value = ''
+		await axios.post('/api/pusher', { message: message, username })
 	}
 
 	useEffect(() => {
