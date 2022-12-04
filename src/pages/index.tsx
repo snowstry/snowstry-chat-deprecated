@@ -109,6 +109,36 @@ export default function Home() {
 								</div> */}
 								<div className="relative w-full p-6 overflow-y-auto h-[30rem]">
 									<ul className="space-y-2">
+										<li className="flex justify-end">
+											<div className="relative px-4 py-2 text-nord_light-300 bg-nord_dark-100 rounded shadow">
+												<strong className="text-nord_light-300 ">Shubham</strong>
+												<span className="block">Hi</span>
+											</div>
+										</li>
+										<li className="flex justify-start">
+											<div className="relative px-4 py-2 text-nord_light-300 bg-nord_dark-100 rounded shadow">
+												<strong className="text-nord_light-300 ">Wix Logo</strong>
+												<span className="block">Hello</span>
+											</div>
+										</li>
+										<li className="flex justify-end">
+											<div className="relative px-4 py-2 text-nord_light-300 bg-nord_dark-100 rounded shadow">
+												<strong className="text-nord_light-300 ">Shubham</strong>
+												<span className="block">Welcome to snowstry, a chat app designed with simplicity and good user experience in mind</span>
+											</div>
+										</li>
+										<li className="flex justify-start">
+											<div className="relative px-4 py-2 text-nord_light-300 bg-nord_dark-100 rounded shadow">
+												<strong className="text-nord_light-300 ">Wix Logo</strong>
+												<span className="block">OH wow!</span>
+											</div>
+										</li>
+										<li className="flex justify-end">
+											<div className="relative px-4 py-2 text-nord_light-300 bg-nord_dark-100 rounded shadow">
+												<strong className="text-nord_light-300 ">Shubham</strong>
+												<span className="block">And it is open sourced too!</span>
+											</div>
+										</li>
 										{chats.map((chat, id) => {
 											return (
 												chat.sender.email === session?.user.email ? (
