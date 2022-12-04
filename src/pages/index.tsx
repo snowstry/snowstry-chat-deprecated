@@ -116,7 +116,7 @@ export default function Home() {
 											</div>
 										</li>
 										<li className="flex justify-start">
-											<div className="relative px-4 py-2 text-nord_light-300 bg-nord_dark-100 rounded shadow">
+											<div className="relative px-4 py-2 text-nord_light-300 bg-nord_dark-400 rounded shadow">
 												<strong className="text-nord_light-300 ">Wix Logo</strong>
 												<span className="block">Hello</span>
 											</div>
@@ -128,7 +128,7 @@ export default function Home() {
 											</div>
 										</li>
 										<li className="flex justify-start">
-											<div className="relative px-4 py-2 text-nord_light-300 bg-nord_dark-100 rounded shadow">
+											<div className="relative px-4 py-2 text-nord_light-300 bg-nord_dark-400 rounded shadow">
 												<strong className="text-nord_light-300 ">Wix Logo</strong>
 												<span className="block">OH wow!</span>
 											</div>
