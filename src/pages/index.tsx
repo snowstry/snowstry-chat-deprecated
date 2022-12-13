@@ -98,15 +98,10 @@ export default function Home() {
 				{/* <h1 className="text-center text-nord_light-300 font-bold text-xl pt-10">
 					Welcome {session?.user.name}
 				</h1> */}
-				<div className="container mx-auto">
-					<div className="w-full  rounded">
-						<div className="hidden lg:col-span-2 lg:block">
+				<div className="container-fluid">
+					<div className="w-full">
+						<div className="lg:col-span-2 lg:block">
 							<div className="w-full">
-								{/* <div className="relative flex items-center p-3">
-									<img className="object-cover w-10 h-10 rounded-full"
-										src="/favicon.ico" alt="username" />
-									<span className="block ml-2 text-nord_light-300">Snowstry Public Chat</span>
-								</div> */}
 								<div className="relative w-full p-6 overflow-y-auto h-[30rem]">
 									<ul className="space-y-2">
 										{chats.map((chat, id) => {
